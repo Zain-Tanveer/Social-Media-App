@@ -1,6 +1,5 @@
 import authenticate from "./classes/Authenticate.class.js";
 import newsfeedClass from "./classes/Newsfeed.class.js";
-import postClass from "./classes/Post.class.js";
 
 await authenticate.isAuthenticated();
 
@@ -8,16 +7,13 @@ await authenticate.isAuthenticated();
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
 [...tooltipTriggerList].map((tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl));
 
-newsfeedClass.setUser();
-newsfeedClass.setUserData();
+newsfeedClass.setUser(); // setting logged in user info for class usage
+newsfeedClass.setUserData(); // setting user data in side profile
+await newsfeedClass.setAllPosts(); // setting posts data
+newsfeedClass.addScrollEventListener(); // setting scroll event listener for getting more posts
 
-console.log(newsfeedClass.user);
+window.addEventListener("scroll", () => {
+  console.log("scroll");
+});
 
-const posts = await postClass.getAllPosts();
-console.log(posts);
-
-console.log("posts after");
-
-// window.addEventListener("scroll", () => {
-//   console.log("scroll");
-// });
+console.log("after posts");

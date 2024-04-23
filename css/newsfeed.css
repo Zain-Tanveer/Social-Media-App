@@ -162,7 +162,7 @@ p {
   background-color: #f2f2f2;
 }
 
-#post-body-show-button[aria-expanded="true"] {
+.post-body-show-button[aria-expanded="true"] {
   display: none;
 }
 

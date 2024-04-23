@@ -224,8 +224,8 @@
                 </div>
               </div>
 
-              <div class="middle-content | col">
-                <div class="posts-card | card">
+              <div class="middle-content | col" id="posts">
+                <div class="posts-card | card mb-4" id="static-post">
                   <div class="card-body px-0">
                     <div class="row row-cols-1 g-0 gap-2">
                       <div
@@ -233,14 +233,14 @@
                       >
                         <div class="post-user-info | d-flex gap-2 align-items-center">
                           <img
-                            class="rounded-circle"
+                            class="user-image-post | rounded-circle"
                             style="width: 2.75rem; height: 2.75rem"
                             src="../assets/images/Picture.jpg"
                             alt=""
                           />
                           <div class="d-flex flex-column">
-                            <p class="clr-primary-text | fw-bold">Jeanne Halvorson</p>
-                            <p class="clr-neutral-400">michelle</p>
+                            <p class="fullname-post clr-primary-text | fw-bold">Jeanne Halvorson</p>
+                            <p class="username-post clr-neutral-400">michelle</p>
                           </div>
                         </div>
                         <div class="post-user-helpers | d-flex gap-1">
@@ -254,28 +254,29 @@
                       </div>
                       <div class="post-info | col py-1">
                         <div class="px-3">
-                          <div class="post-title fs-size-250 fw-bold">
+                          <div class="post-title fs-size-250 | fw-bold">
                             His mother had always taught him
                           </div>
 
                           <div class="post-body fs-size-250 clr-neutral-400 | lh-sm">
                             <span>
-                              His mother had always taught him not to ever think of himself as
-                              better than others. He'd tried to live by this motto. He never looked
-                              down on those
+                              <span class="post-body-first"
+                                >His mother had always taught him not to ever think of himself as
+                                better than others. He'd tried to live by this motto. He never
+                                looked down on those</span
+                              >
                               <span
-                                class="fw-bold text-decoration-underline"
-                                id="post-body-show-button"
+                                class="post-body-show-button | fw-bold text-decoration-underline"
                                 data-bs-toggle="collapse"
-                                href="#collapseExample"
+                                href="#postBodyCollapse"
                                 role="button"
                                 aria-expanded="false"
-                                aria-controls="collapseExample"
+                                aria-controls="postBodyCollapse"
                               >
-                                <span>show more</span></span
+                                show more</span
                               >
                             </span>
-                            <span class="collapse" id="collapseExample">
+                            <span class="post-body-collapse | collapse" id="postBodyCollapse">
                               who were less fortunate or who had less money than him. But the
                               stupidity of the group of people he was talking to made him change his
                               mind.
@@ -296,14 +297,14 @@
                       </div>
                       <div class="post-reactions | px-3 col">
                         <div class="pb-2 border-bottom d-flex justify-content-between fs-size-250">
-                          <div class="d-flex align-items-center">
-                            <span
+                          <div class="likes-comments-numbers | d-flex align-items-center">
+                            <span class="likes-icon-span"
                               ><i
                                 class="likes-icon | fa-solid fa-thumbs-up | rounded-circle"
                               ></i></span
-                            ><span>30</span>
+                            ><span class="likes-number"></span>
                           </div>
-                          <div>30 comments</div>
+                          <div class="comments-number"></div>
                         </div>
                       </div>
                       <div class="col px-3">
@@ -333,14 +334,12 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col px-3">
-                        <div class="more-comments | mb-2 fw-bold clr-neutral-400">
-                          view more comments
-                        </div>
+                      <div class="comments | col px-3">
+                        <div class="more-comments | mb-2 fw-bold clr-neutral-400"></div>
                         <div class="d-inline-flex align-items-center gap-1">
                           <div class="comment | px-3 py-2 d-flex flex-column bg-clr-neutral-100">
-                            <p class="fs-size-250 | fw-bold">Zain Tanveer</p>
-                            <p class="fs-size-400">toh kaise hain aap sab</p>
+                            <p class="comment-user fs-size-250 | fw-bold">Zain Tanveer</p>
+                            <p class="comment-body fs-size-400">How are you today?</p>
                           </div>
                           <div class="comment-options">
                             <i
@@ -354,7 +353,7 @@
                         </div>
                         <div class="d-flex gap-2 align-items-center">
                           <img
-                            class="rounded-circle"
+                            class="post-comment-user-image | rounded-circle"
                             src="../assets/images/Picture.jpg"
                             alt=""
                             style="width: 2.25rem"
