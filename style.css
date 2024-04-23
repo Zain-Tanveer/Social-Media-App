@@ -1,6 +1,7 @@
 :root {
   --clr-neutral-0: #ffffff;
   --clr-neutral-100: #f0f2f5;
+  --clr-neutral-300: #707070;
   --clr-neutral-400: #45494e;
 
   --clr-primary: #0866ff;
@@ -27,10 +28,13 @@
   --fw-bolder: 700;
 
   --size-200: 0.8125rem;
+  --size-250: 0.875rem;
   --size-300: 0.9375rem;
   --size-400: 1rem;
   --size-500: 1.0625rem;
   --size-600: 1.25rem;
+  --size-700: 1.5rem;
+  --size-800: 2rem;
 
   --fs-primary: var(--size-500);
   --fs-secondary: var(--size-300);
@@ -102,6 +106,10 @@ body {
 .primary-header {
   background-color: var(--clr-neutral-0);
   box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.2);
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 100;
 }
 
 .site-logo {
@@ -145,6 +153,34 @@ body {
   background-color: var(--clr-neutral-0);
 }
 
+.bg-clr-primary {
+  background-color: var(--clr-primary);
+}
+.bg-clr-primary-text {
+  background-color: var(--clr-primary-text);
+}
+.bg-clr-primary-icon {
+  background-color: var(--clr-primary-icon);
+}
+.bg-clr-secondary-text {
+  background-color: var(--clr-secondary-text);
+}
+.bg-clr-secondary-icon {
+  background-color: var(--clr-secondary-icon);
+}
+.bg-clr-error {
+  background-color: var(--clr-error);
+}
+.bg-clr-neutral-100 {
+  background-color: var(--clr-neutral-100);
+}
+.bg-clr-neutral-300 {
+  background-color: var(--clr-neutral-300);
+}
+.bg-clr-neutral-400 {
+  background-color: var(--clr-neutral-400);
+}
+
 .clr-primary {
   color: var(--clr-primary);
 }
@@ -162,6 +198,15 @@ body {
 }
 .clr-error {
   color: var(--clr-error);
+}
+.clr-neutral-100 {
+  color: var(--clr-neutral-100);
+}
+.clr-neutral-300 {
+  color: var(--clr-neutral-300);
+}
+.clr-neutral-400 {
+  color: var(--clr-neutral-400);
 }
 
 .fw-regular {
@@ -182,4 +227,29 @@ body {
 }
 .fs-text-sm {
   font-size: var(--fs-text-sm);
+}
+
+.fs-size-200 {
+  font-size: var(--size-200);
+}
+.fs-size-250 {
+  font-size: var(--size-250);
+}
+.fs-size-300 {
+  font-size: var(--size-300);
+}
+.fs-size-400 {
+  font-size: var(--size-400);
+}
+.fs-size-500 {
+  font-size: var(--size-500);
+}
+.fs-size-600 {
+  font-size: var(--size-600);
+}
+.fs-size-700 {
+  font-size: var(--size-700);
+}
+.fs-size-800 {
+  font-size: var(--size-800);
 }

@@ -1,3 +1,11 @@
+p {
+  margin: 0;
+}
+
+.middle {
+  margin-bottom: 3rem;
+}
+
 .nav-icon-button {
   border-radius: 100vmax;
   height: 2.75rem;
@@ -10,12 +18,12 @@
 
 .search-button .nav-icons {
   font-size: 1.25rem;
-  color: #606770;
+  color: var(--clr-secondary-icon);
 }
 
 .header-links i {
   font-size: 2rem;
-  color: #606770;
+  color: var(--clr-secondary-icon);
 }
 
 .nav-item:not(.active) a:hover {
@@ -115,10 +123,15 @@
   width: 32%;
   max-width: 7rem;
   max-height: 7rem;
+  background-color: white;
 }
 
 .side-profile-content {
   margin-top: 3vw;
+}
+
+.side-profile-content .title {
+  color: var(--clr-primary-text);
 }
 
 .search-image-wrapper {
@@ -136,19 +149,116 @@
   background-color: #d3d3d3 !important;
 }
 
+.post-user-helpers .bx {
+  cursor: pointer;
+  font-size: 1.625rem;
+  padding: 0.25rem;
+  color: var(--clr-secondary-icon);
+
+  transition: background-color 0.2s ease;
+}
+
+.post-user-helpers .bx:hover {
+  background-color: #f2f2f2;
+}
+
+#post-body-show-button[aria-expanded="true"] {
+  display: none;
+}
+
+.likes-icon {
+  margin-right: 0.325rem;
+  padding: 0.25rem;
+  font-size: 0.75rem;
+  background-color: var(--clr-primary);
+  color: white;
+}
+
+.like-comment-share {
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.like-comment-share:hover {
+  background-color: var(--clr-neutral-100);
+}
+
+.comment {
+  border-radius: 1rem;
+}
+
+.more-comments {
+  cursor: pointer;
+}
+
+.more-comments:hover {
+  text-decoration: underline;
+}
+
+.comment-options i {
+  cursor: pointer;
+}
+
+.comment-options i:hover {
+  background-color: var(--clr-neutral-100);
+}
+
+.comment-helper {
+  cursor: pointer;
+}
+
+.comment-helper:hover {
+  text-decoration: underline;
+}
+
+.comment-input {
+  font-size: 0.925rem;
+  padding: 0.5rem 1rem;
+  border-radius: 100vmax;
+  background-color: #f2f2f2;
+  border: none;
+  color: black;
+}
+
+.comment-input:focus {
+  color: black;
+  background-color: #f2f2f2;
+  border: none;
+  box-shadow: none;
+}
+
+.comment-send {
+  background-color: #f2f2f2;
+  border: none;
+  border-radius: 100vmax;
+}
+
+.comment-send i {
+  padding: 0.45rem;
+  color: var(--clr-primary);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.comment-send i:hover {
+  background-color: #dddddd;
+}
+
 @media (min-width: 75em) {
   .side-profile-content .title {
     font-size: var(--size-600) !important;
-  }
-
-  .search-image-wrapper {
-    width: 10.5%;
   }
 }
 
 @media (max-width: 75em) {
   .side-profile-content .card-text {
     font-size: var(--size-200);
+  }
+}
+
+@media (max-width: 62em) {
+  .right {
+    display: none;
   }
 }
 
@@ -188,9 +298,9 @@
   }
 }
 
-@media (min-width: 48em) and (max-width: 75em) {
-  .search-image-wrapper {
-    width: 14%;
+@media (max-width: 48em) {
+  .left {
+    display: none;
   }
 }
 

@@ -9,7 +9,7 @@ class Authenticate {
       const response = await userClass.getAuthenticatedUser(token);
 
       if (response.error) {
-        // window.location.href = `../index.html?error=Unauthorized! Please log in.`;
+        window.location.href = `../index.html?error=Unauthorized! Please log in.`;
       } else {
         document.querySelector(".main-content").style.display = "initial";
       }

@@ -30,8 +30,8 @@
     <link rel="stylesheet" href="../css/newsfeed.css" />
   </head>
   <body>
-    <header class="primary-header | mb-2">
-      <div class="container-lg">
+    <header class="primary-header | mb-4">
+      <div class="container-xl">
         <nav class="navbar bg-white py-0">
           <div class="container-fluid">
             <div class="d-flex gap-3 align-items-center">
@@ -170,26 +170,27 @@
     </header>
 
     <main class="main-content" style="display: none">
-      <div class="container-lg">
-        <div class="main-grid | row p-3">
-          <div class="left | col">
+      <div class="container-xl">
+        <div class="main-grid | row p-lg-3">
+          <div class="left | col col-md-4 col-lg-3">
             <div class="row row-cols-1 gap-4">
               <div class="left-content | col">
                 <div class="card text-center">
                   <div class="position-relative">
                     <img
                       class="card-img-top border-5 border-secondary-subtle border-opacity-10"
-                      src="../assets/images/banner-small.webp"
+                      src="../assets/images/banners/banner-small.webp"
                       alt=""
                     />
                     <img
+                      id="side-profile-user-image"
                       class="side-profile-image | rounded-circle position-absolute top-100 start-50 translate-middle"
                       src="../assets/images/Picture.jpg"
                       alt=""
                     />
                   </div>
                   <div class="side-profile-content | card-body p-3">
-                    <h6 class="fw-bold title">Zain Tanveer</h6>
+                    <h6 id="side-profile-username" class="fw-bold title">Zain Tanveer</h6>
                     <p class="card-text lh-sm">
                       Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum dolorem
                       molestiae, beatae omnis quo ab.
@@ -201,29 +202,181 @@
               <div class="left-content content | col">notification</div>
             </div>
           </div>
-          <div class="middle | col-md-6">
+
+          <div class="middle | col-12 col-md-8 col-lg-6">
             <div class="row row-cols-1 gap-4">
               <div class="middle-content | col">
                 <div class="card p-3">
-                  <div class="row g-0 align-items-center">
-                    <div class="search-image-wrapper | col-2">
+                  <div class="d-flex gap-1 align-items-center">
+                    <div class="search-image-wrapper">
                       <img
+                        id="search-image"
                         src="../assets/images/Picture.jpg"
                         alt="..."
                         class="img rounded-circle"
                         style="width: 3rem"
                       />
                     </div>
-                    <div class="col">
-                      <div class="search-text | bg-secondary-subtle px-4 rounded-pill">
-                        Whats on your mind, Zain?
-                      </div>
+                    <div class="search-text | bg-secondary-subtle px-4 rounded-pill w-100">
+                      Whats on your mind, <span id="search-username">Zain</span>?
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="middle-content content | col">
-                <div class="card">post</div>
+
+              <div class="middle-content | col">
+                <div class="posts-card | card">
+                  <div class="card-body px-0">
+                    <div class="row row-cols-1 g-0 gap-2">
+                      <div
+                        class="post-user | col px-3 d-flex justify-content-between align-items-center"
+                      >
+                        <div class="post-user-info | d-flex gap-2 align-items-center">
+                          <img
+                            class="rounded-circle"
+                            style="width: 2.75rem; height: 2.75rem"
+                            src="../assets/images/Picture.jpg"
+                            alt=""
+                          />
+                          <div class="d-flex flex-column">
+                            <p class="clr-primary-text | fw-bold">Jeanne Halvorson</p>
+                            <p class="clr-neutral-400">michelle</p>
+                          </div>
+                        </div>
+                        <div class="post-user-helpers | d-flex gap-1">
+                          <div class="dot-helper-wrapper">
+                            <i class="bx bx-dots-horizontal-rounded rounded-circle"></i>
+                          </div>
+                          <div class="cross-helper-wrapper">
+                            <i class="bx bx-x rounded-circle"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="post-info | col py-1">
+                        <div class="px-3">
+                          <div class="post-title fs-size-250 fw-bold">
+                            His mother had always taught him
+                          </div>
+
+                          <div class="post-body fs-size-250 clr-neutral-400 | lh-sm">
+                            <span>
+                              His mother had always taught him not to ever think of himself as
+                              better than others. He'd tried to live by this motto. He never looked
+                              down on those
+                              <span
+                                class="fw-bold text-decoration-underline"
+                                id="post-body-show-button"
+                                data-bs-toggle="collapse"
+                                href="#collapseExample"
+                                role="button"
+                                aria-expanded="false"
+                                aria-controls="collapseExample"
+                              >
+                                <span>show more</span></span
+                              >
+                            </span>
+                            <span class="collapse" id="collapseExample">
+                              who were less fortunate or who had less money than him. But the
+                              stupidity of the group of people he was talking to made him change his
+                              mind.
+                              <div class="mt-1">
+                                <span class="clr-primary">#history</span>
+                                <span class="clr-primary">#american</span>
+                                <span class="clr-primary">#crime</span>
+                              </div>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div
+                        class="post-image | col d-flex justify-content-center bg-secondary-subtle"
+                      >
+                        <img src="../assets/images/posts/post-3.jpg" alt="" />
+                      </div>
+                      <div class="post-reactions | px-3 col">
+                        <div class="pb-2 border-bottom d-flex justify-content-between fs-size-250">
+                          <div class="d-flex align-items-center">
+                            <span
+                              ><i
+                                class="likes-icon | fa-solid fa-thumbs-up | rounded-circle"
+                              ></i></span
+                            ><span>30</span>
+                          </div>
+                          <div>30 comments</div>
+                        </div>
+                      </div>
+                      <div class="col px-3">
+                        <div
+                          class="clr-neutral-400 | row row-cols-3 text-center pb-2 g-0 border-bottom"
+                        >
+                          <div class="like-comment-share | col py-1">
+                            <div class="d-flex gap-2 align-items-center justify-content-center">
+                              <i class="fs-size-600 | fa-regular fa-thumbs-up"></i>
+                              <span class="fw-semibold">Like</span>
+                            </div>
+                          </div>
+                          <div class="like-comment-share | col py-1">
+                            <div class="d-flex gap-2 align-items-center justify-content-center">
+                              <i class="fs-size-600 | fa-regular fa-comment"></i>
+                              <span class="fw-semibold">Comment</span>
+                            </div>
+                          </div>
+                          <div class="like-comment-share | col py-1">
+                            <div class="d-flex gap-2 align-items-center justify-content-center">
+                              <i
+                                class="fs-size-700 | bx bx-share"
+                                style="transform: scaleX(-1)"
+                              ></i>
+                              <span class="fw-semibold">Share</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col px-3">
+                        <div class="more-comments | mb-2 fw-bold clr-neutral-400">
+                          view more comments
+                        </div>
+                        <div class="d-inline-flex align-items-center gap-1">
+                          <div class="comment | px-3 py-2 d-flex flex-column bg-clr-neutral-100">
+                            <p class="fs-size-250 | fw-bold">Zain Tanveer</p>
+                            <p class="fs-size-400">toh kaise hain aap sab</p>
+                          </div>
+                          <div class="comment-options">
+                            <i
+                              class="fs-size-500 clr-neutral-400 | bx bx-dots-horizontal-rounded | p-2 rounded-circle"
+                            ></i>
+                          </div>
+                        </div>
+                        <div class="fs-size-200 | d-flex gap-3 ms-3 mb-3 fw-bold clr-neutral-300">
+                          <div class="comment-helper">Like</div>
+                          <div class="comment-helper">Reply</div>
+                        </div>
+                        <div class="d-flex gap-2 align-items-center">
+                          <img
+                            class="rounded-circle"
+                            src="../assets/images/Picture.jpg"
+                            alt=""
+                            style="width: 2.25rem"
+                          />
+
+                          <div class="input-group">
+                            <input
+                              type="text"
+                              class="comment-input clr-neutral-300 | form-control"
+                              placeholder="Comment as Zain Tanveer"
+                              aria-label="comment input"
+                              aria-describedby="comment-send-icon"
+                            />
+                            <span class="comment-send | input-group-text" id="comment-send-icon">
+                              <i class="bx bx-send rounded-circle"></i>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

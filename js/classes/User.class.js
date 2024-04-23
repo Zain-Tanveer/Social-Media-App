@@ -15,6 +15,20 @@ class User {
     return localStorage.getItem("token");
   }
 
+  async getSingleUser(userId) {
+    try {
+      const response = await fetch(`https://dummyjson.com/users/${userId}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch");
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      return { error: error.message };
+    }
+  }
+
   async LoginUser(username, password) {
     try {
       const response = await fetch("https://dummyjson.com/auth/login", {

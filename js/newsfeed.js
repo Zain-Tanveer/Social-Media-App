@@ -1,13 +1,23 @@
 import authenticate from "./classes/Authenticate.class.js";
-import userClass from "./classes/User.class.js";
+import newsfeedClass from "./classes/Newsfeed.class.js";
+import postClass from "./classes/Post.class.js";
 
 await authenticate.isAuthenticated();
-const user = userClass.getUser();
 
 // initialize all tooltips for bootstrap
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-const tooltipList = [...tooltipTriggerList].map(
-  (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
-);
+[...tooltipTriggerList].map((tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl));
 
-console.log(user);
+newsfeedClass.setUser();
+newsfeedClass.setUserData();
+
+console.log(newsfeedClass.user);
+
+const posts = await postClass.getAllPosts();
+console.log(posts);
+
+console.log("posts after");
+
+// window.addEventListener("scroll", () => {
+//   console.log("scroll");
+// });
