@@ -8,8 +8,10 @@ class Authenticate {
       const token = userClass.getToken();
       const response = await userClass.getAuthenticatedUser(token);
 
+      console.log(response);
+
       if (response.error) {
-        window.location.href = `../index.html?error=Unauthorized! Please log in.`;
+        // window.location.href = `../index.html?error=Unauthorized! Please log in.`;
       }
     } catch (error) {
       console.log("auth error:", error);

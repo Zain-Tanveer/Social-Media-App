@@ -240,6 +240,14 @@ p {
   background-color: #dddddd;
 }
 
+.comment-options i[aria-expanded="true"] {
+  background-color: var(--clr-neutral-100);
+}
+
+.comment-options-dropdown {
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
 @media (min-width: 75em) {
   .side-profile-content .title {
     font-size: var(--size-600) !important;

@@ -1,6 +1,9 @@
 import authenticate from "./classes/Authenticate.class.js";
 import newsfeedClass from "./classes/Newsfeed.class.js";
-import postClass from "./classes/Post.class.js";
+import Post from "./classes/Post.class.js";
+
+// this will remove that hardcoded post in html.
+document.getElementById("posts").innerHTML = "";
 
 await authenticate.isAuthenticated();
 
@@ -27,7 +30,7 @@ newsfeedClass.addScrollEventListener(); // setting scroll event listener for get
 // this is a custom event. it is triggered every time when the last
 // post is on screen. see 'addScrollEventListener()' in newsfeed class.
 document.addEventListener("handleNewPosts", async () => {
-  postClass.setSkip(postClass.getSkip() + 10); // updating the skip value to get next 10 posts
+  Post.setSkip(Post.getSkip() + 10); // updating the skip value to get next 10 posts
   await newsfeedClass.setAllPosts(); // getting the next 10 posts
   newsfeedClass.addScrollEventListener(); // setting scroll event listener for getting more posts
 });

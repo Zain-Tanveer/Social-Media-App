@@ -1,5 +1,5 @@
 import userClass from "./User.class.js";
-import postClass from "./Post.class.js";
+import Post from "./Post.class.js";
 import commentClass from "./Comment.class.js";
 
 class Newsfeed {
@@ -32,12 +32,14 @@ class Newsfeed {
 
   async setAllPosts() {
     try {
-      const { posts } = await postClass.getAllPosts();
+      const { posts } = await Post.getAllPosts();
 
       for (const post of posts) {
         const user = await userClass.getSingleUser(post.userId);
-        const comments = await commentClass.getPostComments(post.id);
-        await postClass.createNewPost(post, user, comments.comments);
+        const response = await commentClass.getPostComments(post.id);
+
+        const postObj = new Post(post, user, response.comments);
+        await postObj.createNewPost();
       }
     } catch (error) {
       console.log(error);
@@ -49,7 +51,7 @@ class Newsfeed {
   }
 
   static handleScrollEventListener() {
-    const postEl = document.getElementById(`post-${postClass.getLastPostId()}`);
+    const postEl = document.getElementById(`post-${Post.getLastPostId()}`);
     const customEvent = new Event("handleNewPosts");
 
     // function to check if element is in viewport

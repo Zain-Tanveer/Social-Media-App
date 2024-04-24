@@ -276,7 +276,7 @@
 
               <div class="middle-content | col">
                 <div class="posts-wrapper" id="posts">
-                  <div class="posts-card | card mb-4" id="static-post">
+                  <div class="posts-card | card mb-4 d-none" id="static-post">
                     <div class="card-body px-0">
                       <div class="row row-cols-1 g-0 gap-2">
                         <div
@@ -395,25 +395,41 @@
                             data-bs-toggle="modal"
                             data-bs-target="#postModal"
                           ></div>
-                          <div class="comment-wrapper">
-                            <div class="d-inline-flex align-items-center gap-1">
+                          <div class="comments-wrapper">
+                            <div class="comment-container">
+                              <div class="d-inline-flex align-items-center gap-1">
+                                <div
+                                  class="comment | px-3 py-2 d-flex flex-column bg-clr-neutral-100"
+                                >
+                                  <p class="comment-user fs-size-250 | fw-bold">Zain Tanveer</p>
+                                  <p class="comment-body fs-size-400">How are you today?</p>
+                                </div>
+                                <div class="comment-options | dropdown-center">
+                                  <i
+                                    class="fs-size-500 clr-neutral-400 | bx bx-dots-horizontal-rounded | p-2 rounded-circle"
+                                    data-bs-toggle="dropdown"
+                                    data-bs-offset="0,5"
+                                    aria-expanded="false"
+                                  ></i>
+
+                                  <ul class="comment-options-dropdown | dropdown-menu border-0">
+                                    <li>
+                                      <a class="fs-size-300 | dropdown-item fw-bold" href="#">
+                                        Edit
+                                      </a>
+                                      <a class="fs-size-300 | dropdown-item fw-bold" href="#">
+                                        Delete
+                                      </a>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
                               <div
-                                class="comment | px-3 py-2 d-flex flex-column bg-clr-neutral-100"
+                                class="fs-size-200 | d-flex gap-3 ms-3 mb-3 fw-bold clr-neutral-300"
                               >
-                                <p class="comment-user fs-size-250 | fw-bold">Zain Tanveer</p>
-                                <p class="comment-body fs-size-400">How are you today?</p>
+                                <div class="comment-helper">Like</div>
+                                <div class="comment-helper">Reply</div>
                               </div>
-                              <div class="comment-options">
-                                <i
-                                  class="fs-size-500 clr-neutral-400 | bx bx-dots-horizontal-rounded | p-2 rounded-circle"
-                                ></i>
-                              </div>
-                            </div>
-                            <div
-                              class="fs-size-200 | d-flex gap-3 ms-3 mb-3 fw-bold clr-neutral-300"
-                            >
-                              <div class="comment-helper">Like</div>
-                              <div class="comment-helper">Reply</div>
                             </div>
                           </div>
                           <div class="d-flex gap-2 align-items-center">
