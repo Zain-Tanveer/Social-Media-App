@@ -2,10 +2,6 @@ p {
   margin: 0;
 }
 
-.body {
-  height: 200vh;
-}
-
 .middle {
   margin-bottom: 3rem;
 }
@@ -101,10 +97,6 @@ p {
   box-shadow: none;
 }
 
-/* .main-grid div {
-  background-color: aquamarine;
-} */
-
 .content {
   background-color: #c1c1c1 !important;
 }
@@ -131,7 +123,7 @@ p {
 }
 
 .side-profile-content {
-  margin-top: 3vw;
+  margin-top: 4vw;
 }
 
 .side-profile-content .title {

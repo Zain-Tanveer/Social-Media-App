@@ -70,6 +70,8 @@ class Post {
   createNewPost(post, user, comments) {
     let newPostEl = this.staticPostEl.cloneNode(true);
     newPostEl = this.setPostData(newPostEl, post, user, comments);
+    this.addPostEventListeners(newPostEl, post, user, comments);
+
     document.getElementById("posts").appendChild(newPostEl);
   }
 
@@ -81,10 +83,31 @@ class Post {
     this.setPostTitle(postEl, post); // setting the title of post
     this.setPostBody(postEl, post); // setting the body of post
     this.setPostReactions(postEl, post); // setting the likes count
-    this.setPostComments(postEl, comments); // setting the comment of post
+    this.setPostComments(postEl, comments, post); // setting the comment of post
     this.setUserInfo(postEl); // setting the logged in user info on post
 
     return postEl;
+  }
+
+  // function to set post modal data
+  setModalPostData(post, user, comments) {
+    const postModalEl = document.getElementById("postModal");
+
+    this.setPostModalTitle(postModalEl, user); // setting the title on post modal
+    this.setPostImages(postModalEl, user); // setting all images on post modal
+    this.setPostUserInfo(postModalEl, user); // setting all user information related to the post modal
+    this.setPostTitle(postModalEl, post); // setting the title of post modal
+    this.setPostBody(postModalEl, post); // setting the body of post modal
+    this.setPostReactions(postModalEl, post); // setting the likes count
+    this.setPostCommentNumber(postModalEl, comments.length); // setting the comments count
+    this.setModalPostCommentNumberText(postModalEl, comments); // setting the 'comment/comments' text
+    this.setModalPostComments(postModalEl, comments); // setting the comment of post
+    this.setUserInfo(postModalEl); // setting the logged in user info on post
+  }
+
+  setPostModalTitle(modalEl, user) {
+    const modalTitleEl = modalEl.querySelector("#postModalLabel");
+    modalTitleEl.innerHTML = `${user.username}'s post`;
   }
 
   // function to set all ids of post
@@ -171,17 +194,14 @@ class Post {
   // function to set the comments of post
   setPostComments(postEl, comments) {
     if (comments.length > 0) {
-      const commentUserEl = postEl.querySelector(".comment-user");
-      commentUserEl.innerHTML = comments[0].user.username;
-      const commentBodyEl = postEl.querySelector(".comment-body");
-      commentBodyEl.innerHTML = comments[0].body;
+      this.setPostCommentInfo(postEl, comments[0]);
+      this.setPostCommentNumber(postEl, comments.length);
 
       const commentsNumberEl = postEl.querySelector(".comments-number");
-      commentsNumberEl.innerHTML = comments.length;
 
       if (comments.length > 1) {
-        commentsNumberEl.innerHTML += " comments";
         const moreCommentsEl = postEl.querySelector(".more-comments");
+        commentsNumberEl.innerHTML += " comments";
         moreCommentsEl.innerHTML = "view more comments";
       } else {
         commentsNumberEl.innerHTML += " comment";
@@ -190,6 +210,50 @@ class Post {
       const commentsEl = postEl.querySelector(".comments");
       commentsEl.style.display = "none";
     }
+  }
+
+  // function to set info of comment on post
+  setPostCommentInfo(postEl, comment) {
+    const commentUserEl = postEl.querySelector(".comment-user");
+    const commentBodyEl = postEl.querySelector(".comment-body");
+    commentUserEl.innerHTML = comment.user.username;
+    commentBodyEl.innerHTML = comment.body;
+  }
+
+  // function to set comments number on post
+  setPostCommentNumber(postEl, text) {
+    const commentsNumberEl = postEl.querySelector(".comments-number");
+    commentsNumberEl.innerHTML = text;
+  }
+
+  // function to set the comments of post modal
+  setModalPostComments(postEl, comments) {
+    const commentsWrapperEl = postEl.querySelector(".comments-wrapper");
+    const commentEl = commentsWrapperEl.querySelector(".comment-container");
+
+    commentsWrapperEl.innerHTML = "";
+
+    for (const comment of comments) {
+      const newCommentEl = this.createModalPostComment(commentEl);
+      this.setPostCommentInfo(newCommentEl, comment);
+      commentsWrapperEl.appendChild(newCommentEl);
+    }
+  }
+
+  // function to set comments number text on post modal
+  setModalPostCommentNumberText(postEl, comments) {
+    const commentsNumberEl = postEl.querySelector(".comments-number");
+
+    if (comments.length > 1) {
+      commentsNumberEl.innerHTML += " comments";
+    } else {
+      commentsNumberEl.innerHTML += " comment";
+    }
+  }
+
+  // function to create comment of post modal
+  createModalPostComment(commentEl) {
+    return commentEl.cloneNode(true);
   }
 
   // function to create hashtags for post body
@@ -206,6 +270,20 @@ class Post {
     });
 
     return tagsDiv;
+  }
+
+  // function to add event listeners on post
+  addPostEventListeners(postEl, post, user, comments) {
+    this.addMoreCommentsEventListener(postEl, post, user, comments);
+  }
+
+  // function to add event listener for more view more comments on post
+  addMoreCommentsEventListener(postEl, post, user, comments) {
+    const moreCommentsEl = postEl.querySelector(".more-comments");
+
+    moreCommentsEl.addEventListener("click", () => {
+      this.setModalPostData(post, user, comments);
+    });
   }
 }
 
