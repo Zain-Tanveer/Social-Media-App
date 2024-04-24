@@ -27,6 +27,16 @@ class Post {
     return this.staticPostEl;
   }
 
+  // function to set skip value
+  setSkip(skip) {
+    this.skip = skip;
+  }
+
+  // function to get skip value
+  getSkip() {
+    return this.skip;
+  }
+
   // function to set the id for last post.
   setLastPostId(id) {
     this.lastPostId = id;
@@ -38,7 +48,7 @@ class Post {
   }
 
   // function to get all posts data from api
-  async getAllPosts(limit = this.limit, skip = this.skip) {
+  async getAllPosts(skip = this.skip, limit = this.limit) {
     try {
       const response = await fetch(`https://dummyjson.com/posts?limit=${limit}&skip=${skip}`);
       const data = await response.json();
@@ -48,6 +58,7 @@ class Post {
       }
 
       this.setLastPostId(data.posts[data.posts.length - 1].id);
+      console.log(data);
 
       return data;
     } catch (error) {

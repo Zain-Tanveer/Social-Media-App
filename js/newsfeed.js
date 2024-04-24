@@ -1,5 +1,6 @@
 import authenticate from "./classes/Authenticate.class.js";
 import newsfeedClass from "./classes/Newsfeed.class.js";
+import postClass from "./classes/Post.class.js";
 
 await authenticate.isAuthenticated();
 
@@ -9,11 +10,26 @@ const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]
 
 newsfeedClass.setUser(); // setting logged in user info for class usage
 newsfeedClass.setUserData(); // setting user data in side profile
+
+const leftSidebarEl = document.getElementById("left-side");
+const leftSidebarPlaceholderEl = document.getElementById("left-side-placeholder");
+const saySomethingEl = document.getElementById("say-something");
+const saySomethingPlaceholderEL = document.getElementById("say-something-placeholder");
+
+saySomethingPlaceholderEL.classList.add("d-none");
+leftSidebarPlaceholderEl.classList.add("d-none");
+leftSidebarEl.classList.remove("d-none");
+saySomethingEl.classList.remove("d-none");
+
 await newsfeedClass.setAllPosts(); // setting posts data
 newsfeedClass.addScrollEventListener(); // setting scroll event listener for getting more posts
 
-window.addEventListener("scroll", () => {
-  console.log("scroll");
+// this is a custom event. it is triggered every time when the last
+// post is on screen. see 'addScrollEventListener()' in newsfeed class.
+document.addEventListener("handleNewPosts", async () => {
+  postClass.setSkip(postClass.getSkip() + 10); // updating the skip value to get next 10 posts
+  await newsfeedClass.setAllPosts(); // getting the next 10 posts
+  newsfeedClass.addScrollEventListener(); // setting scroll event listener for getting more posts
 });
 
 console.log("after posts");

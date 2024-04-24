@@ -10,8 +10,6 @@ class Authenticate {
 
       if (response.error) {
         window.location.href = `../index.html?error=Unauthorized! Please log in.`;
-      } else {
-        document.querySelector(".main-content").style.display = "initial";
       }
     } catch (error) {
       console.log("auth error:", error);

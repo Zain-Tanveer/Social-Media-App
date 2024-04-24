@@ -45,26 +45,23 @@ class Newsfeed {
   }
 
   addScrollEventListener() {
-    const postEl = document.getElementById(`post-${postClass.getLastPostId()}`);
-
-    document.getElementById("posts").addEventListener("scroll", () => {
-      console.log("event listener added");
-      if (this.isInViewport(postEl)) {
-        console.log("in view");
-      }
-    });
+    document.body.addEventListener("scroll", Newsfeed.handleScrollEventListener);
   }
 
-  // function to check if element is in viewport
-  isInViewport(element) {
-    const rect = element.getBoundingClientRect();
+  static handleScrollEventListener() {
+    const postEl = document.getElementById(`post-${postClass.getLastPostId()}`);
+    const customEvent = new Event("handleNewPosts");
 
-    return (
-      rect.top >= 0 &&
-      rect.left >= 0 &&
-      rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-    );
+    // function to check if element is in viewport
+    function isInViewport(element) {
+      const rect = element.getBoundingClientRect();
+      return rect.top < 0;
+    }
+
+    if (isInViewport(postEl)) {
+      document.dispatchEvent(customEvent);
+      document.body.removeEventListener("scroll", Newsfeed.handleScrollEventListener);
+    }
   }
 }
 
