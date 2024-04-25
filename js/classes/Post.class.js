@@ -1,6 +1,7 @@
 import CommentClass from "./Comment.class.js";
 import userClass from "./User.class.js";
 import UtilityClass from "./Utility.class.js";
+import Modal from "./Modal.class.js";
 
 class Post {
   // this is the post that is hardcoded in html.
@@ -300,18 +301,18 @@ class Post {
   // function to create dropdown elements
   createDropdownElements(postEl, dropdownEl, type, comment_id) {
     if (type === "user") {
-      const editEl = this.createDropdownLiEl("edit");
+      const editEl = this.createDropdownLiEl("edit comment");
       this.addDropdownEditEventListener(postEl, editEl, comment_id);
       dropdownEl.appendChild(editEl);
 
-      const deleteEl = this.createDropdownLiEl("delete");
+      const deleteEl = this.createDropdownLiEl("delete comment");
       deleteEl.setAttribute("data-bs-toggle", "modal");
       deleteEl.setAttribute("data-bs-target", "#deleteCommentModal");
       this.addDropdownDeleteEventListener(postEl, deleteEl, `${this.post.id}-${comment_id}`);
       dropdownEl.appendChild(deleteEl);
     } else {
       dropdownEl.appendChild(this.createDropdownLiEl("hide comment"));
-      dropdownEl.appendChild(this.createDropdownLiEl("show comment"));
+      dropdownEl.appendChild(this.createDropdownLiEl("report comment"));
     }
   }
 
@@ -326,6 +327,7 @@ class Post {
   // function to create dropdown anchor element
   createDropdownAnchorEl(text) {
     const anchorEl = document.createElement("a");
+    anchorEl.style.cursor = "pointer";
     anchorEl.classList.add("fs-300", "dropdown-item", "fw-bold");
     anchorEl.innerHTML = text;
 
@@ -409,15 +411,33 @@ class Post {
       const modalCommentDeleteBtn = document.getElementById("modal-comment-delete-button");
       modalCommentDeleteBtn.setAttribute("data-id", data_id);
 
-      document.addEventListener(`deleteComment${data_id}`, () => {
-        const comments = Post.handleDeleteEventListener(this.comments, data_id);
-        this.comments = comments;
-        this.setPostCommentNumber(postEl);
-        this.setPostCommentNumberText(postEl);
+      document.addEventListener(`deleteComment${data_id}`, async () => {
+        const modalEl = document.getElementById("deleteCommentModal");
+        try {
+          this.showLoader(modalEl, "deleteModalDeleteText", "deleteModalLoader");
+          const comments = await Post.handleDeleteEventListener(this.comments, data_id);
 
-        if (postEl.getAttribute("id") === "postModal") {
-          this.setPostCommentNumber(this.postEl);
-          this.setPostCommentNumberText(this.postEl);
+          this.comments = comments;
+          const commentEl = document.querySelector(
+            `.comment-container[data-comment-id="${data_id}"]`
+          );
+          commentEl.parentNode.removeChild(commentEl);
+
+          this.setPostCommentNumber(postEl);
+          this.setPostCommentNumberText(postEl);
+
+          if (postEl.getAttribute("id") === "postModal") {
+            this.setPostCommentNumber(this.postEl);
+            this.setPostCommentNumberText(this.postEl);
+          }
+
+          this.hideLoader(modalEl, "deleteModalDeleteText", "deleteModalLoader");
+          Modal.hideDeleteCommentModal();
+          UtilityClass.displayAlertMessage("Comment deleted!", "success");
+        } catch (error) {
+          this.hideLoader(modalEl, "deleteModalDeleteText", "deleteModalLoader");
+          Modal.hideDeleteCommentModal();
+          UtilityClass.displayAlertMessage(error.message, "danger");
         }
       });
     });
@@ -425,8 +445,17 @@ class Post {
 
   // function to handle custom delete event listener dispatched
   // from 'addDeleteModalEventListener' in Modal class
-  static handleDeleteEventListener(comments, data_id) {
+  static async handleDeleteEventListener(comments, data_id) {
     const commentId = parseInt(data_id.split("-")[1]);
+
+    // we would pass commentId here but since the api doesn't allow adding
+    // a new comment it will throw a error if we pass custom generated comment id.
+    const response = await CommentClass.deleteComment();
+
+    if (response.error) {
+      throw new Error(response.error);
+    }
+
     return comments.filter((comment) => comment.id !== commentId);
   }
 
@@ -451,7 +480,7 @@ class Post {
 
       this.comments.push(newComment);
 
-      this.setNewCommentElement(postEl, newComment);
+      this.setAddNewCommentElement(postEl, newComment);
 
       inputEl.value = "";
       this.comment_id++;
@@ -463,7 +492,7 @@ class Post {
     }
   }
 
-  setNewCommentElement(postEl, newComment) {
+  setAddNewCommentElement(postEl, newComment) {
     const commentsWrapperEl = postEl.querySelector(".comments-wrapper");
     const commentEl = commentsWrapperEl.querySelector(".comment-container");
 

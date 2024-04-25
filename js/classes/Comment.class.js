@@ -38,6 +38,24 @@ class Comment {
       return { error: error.message };
     }
   }
+
+  async deleteComment(commentId = 1) {
+    try {
+      const response = await fetch(`https://dummyjson.com/comments/${commentId}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error("Error deleting comment. Please try again.");
+      }
+
+      const data = await response.json();
+
+      return data;
+    } catch (error) {
+      return { error: error.message };
+    }
+  }
 }
 
 export default new Comment();

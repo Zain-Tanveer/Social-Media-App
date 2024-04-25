@@ -769,13 +769,16 @@
           <div class="modal-body">Are you sure you want to delete this comment?</div>
           <div class="modal-footer border-0">
             <button type="button" class="delete-no-button | btn" data-bs-dismiss="modal">No</button>
-            <button
-              type="button"
-              class="btn btn-primary"
-              id="modal-comment-delete-button"
-              data-bs-dismiss="modal"
-            >
-              Delete
+            <button type="button" class="btn btn-primary" id="modal-comment-delete-button">
+              <div class="d-flex justify-content-center align-items-center" style="width: 4rem">
+                <span class="deleteModalDeleteText">Delete</span>
+                <div
+                  class="deleteModalLoader | spinner-border spinner-border-sm text-light p-2 d-none"
+                  role="status"
+                >
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              </div>
             </button>
           </div>
         </div>

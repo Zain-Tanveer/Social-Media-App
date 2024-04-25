@@ -3,6 +3,8 @@ import newsfeedClass from "./classes/Newsfeed.class.js";
 import Post from "./classes/Post.class.js";
 import Modal from "./classes/Modal.class.js";
 
+// Modal.showDeleteCommentModal();
+
 // this will remove that hardcoded post in html.
 document.getElementById("posts").innerHTML = "";
 
