@@ -1,4 +1,6 @@
+import CommentClass from "./Comment.class.js";
 import userClass from "./User.class.js";
+import UtilityClass from "./Utility.class.js";
 
 class Post {
   // this is the post that is hardcoded in html.
@@ -374,9 +376,6 @@ class Post {
         if (inputEl.value !== "") {
           const loggedUser = userClass.getUser();
 
-          const commentsWrapperEl = postEl.querySelector(".comments-wrapper");
-          const commentEl = commentsWrapperEl.querySelector(".comment-container");
-
           const newComment = {
             id: this.comment_id,
             body: inputEl.value,
@@ -386,37 +385,51 @@ class Post {
             },
           };
 
-          this.comments.push(newComment);
+          try {
+            const commentResp = await CommentClass.addComment();
 
-          const newCommentEl = this.cloneElement(commentEl);
-          newCommentEl.style.display = "initial";
-          newCommentEl.setAttribute("data-comment-id", `${this.post.id}-${this.comment_id}`);
+            if (commentResp.error) {
+              inputEl.value = "";
+              throw new Error(commentResp.error);
+            }
 
-          this.setPostCommentInfo(newCommentEl, newComment);
-          this.setPostCommentNumber(postEl);
-          this.setPostCommentNumberText(postEl);
+            this.comments.push(newComment);
 
-          if (postEl.getAttribute("id") === "postModal") {
-            this.setPostCommentNumber(this.postEl);
-            this.setPostCommentNumberText(this.postEl);
+            const commentsWrapperEl = postEl.querySelector(".comments-wrapper");
+            const commentEl = commentsWrapperEl.querySelector(".comment-container");
 
-            const postCommentWrapperEl = this.postEl.querySelector(".comments-wrapper");
-            const clonedNewCommentEl = this.cloneElement(newCommentEl);
-            this.setCommentOptionsDropdown(
-              this.postEl,
-              clonedNewCommentEl,
-              "user",
-              this.comment_id
-            );
-            postCommentWrapperEl.appendChild(clonedNewCommentEl);
+            const newCommentEl = this.cloneElement(commentEl);
+            newCommentEl.style.display = "initial";
+            newCommentEl.setAttribute("data-comment-id", `${this.post.id}-${this.comment_id}`);
+
+            this.setPostCommentInfo(newCommentEl, newComment);
+            this.setPostCommentNumber(postEl);
+            this.setPostCommentNumberText(postEl);
+
+            if (postEl.getAttribute("id") === "postModal") {
+              this.setPostCommentNumber(this.postEl);
+              this.setPostCommentNumberText(this.postEl);
+
+              const postCommentWrapperEl = this.postEl.querySelector(".comments-wrapper");
+              const clonedNewCommentEl = this.cloneElement(newCommentEl);
+              this.setCommentOptionsDropdown(
+                this.postEl,
+                clonedNewCommentEl,
+                "user",
+                this.comment_id
+              );
+              postCommentWrapperEl.appendChild(clonedNewCommentEl);
+            }
+
+            this.setCommentOptionsDropdown(postEl, newCommentEl, "user", this.comment_id);
+
+            commentsWrapperEl.appendChild(newCommentEl);
+
+            inputEl.value = "";
+            this.comment_id++;
+          } catch (error) {
+            UtilityClass.displayAlertMessage(commentResp.error, "danger", 3000);
           }
-
-          this.setCommentOptionsDropdown(postEl, newCommentEl, "user", this.comment_id);
-
-          commentsWrapperEl.appendChild(newCommentEl);
-
-          inputEl.value = "";
-          this.comment_id++;
         }
       }
     });

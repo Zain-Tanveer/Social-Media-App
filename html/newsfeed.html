@@ -172,6 +172,25 @@
 
     <main class="main-content">
       <div class="container-xl">
+        <div
+          id="response-message"
+          class="response-message | alert alert-dismissible d-none d-flex align-items-center position-fixed top-0 end-0"
+          role="alert"
+        >
+          <i id="response-icon" class="fa-solid me-2"></i>
+          <div class="me-2" id="response-text">Dummy Text</div>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+          ></button>
+
+          <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+          </div>
+        </div>
+
         <div class="main-grid | row p-lg-3">
           <div class="left | col col-md-4 col-lg-3">
             <div class="row row-cols-1 gap-4 d-none" id="left-side">

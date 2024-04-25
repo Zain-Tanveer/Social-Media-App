@@ -7,27 +7,28 @@ class Utility {
     const messageEl = document.getElementById("response-message");
     const textEl = messageEl.querySelector("#response-text");
     const progressBarEl = messageEl.querySelector("#progressBar");
-    const svgEl = messageEl.querySelector("#response-svg");
-    const svgElImg = svgEl.querySelector("use");
+    const iconEl = messageEl.querySelector("#response-icon");
 
     if (messageEl.classList.contains("alert-success")) {
       messageEl.classList.remove("alert-success");
       progressBarEl.classList.remove("bg-success");
-      svgEl.removeAttribute("aria-label", `success:`);
-      svgElImg.removeAttribute("href", `#success-fill`);
+      iconEl.classList.remove("fa-circle-check");
     } else if (messageEl.classList.contains("alert-danger")) {
       messageEl.classList.remove("alert-danger");
       progressBarEl.classList.remove("bg-danger");
-      svgEl.removeAttribute("aria-label", `danger:`);
-      svgElImg.removeAttribute("href", `#danger-fill`);
+      iconEl.classList.remove("fa-circle-exclamation");
     }
 
     progressBarEl.style.width = "0%";
     progressBarEl.classList.add(`bg-${type}`);
     messageEl.classList.add(`alert-${type}`);
     messageEl.classList.remove("d-none");
-    svgEl.setAttribute("aria-label", `${type}:`);
-    svgElImg.setAttribute("href", `#${type}-fill`);
+
+    if (type === "success") {
+      iconEl.classList.add("fa-circle-check");
+    } else {
+      iconEl.classList.add("fa-circle-exclamation");
+    }
 
     textEl.innerHTML = message;
 
