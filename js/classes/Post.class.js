@@ -118,6 +118,7 @@ class Post {
     this.setUserInfo(postModalEl); // setting the logged in user info on post
 
     this.addCommentInputEventListener(postModalEl);
+    this.addCommentSendEventListener(postModalEl);
   }
 
   setPostModalTitle(modalEl) {
@@ -356,14 +357,26 @@ class Post {
   addPostEventListeners(postEl) {
     this.addMoreCommentsEventListener(postEl);
     this.addCommentInputEventListener(postEl);
+    this.addCommentSendEventListener(postEl);
   }
 
   // function to add event listener for more view more comments on post
   addMoreCommentsEventListener(postEl) {
     const moreCommentsEl = postEl.querySelector(".more-comments");
-
     moreCommentsEl.addEventListener("click", () => {
       this.setModalPostData();
+    });
+  }
+
+  addCommentSendEventListener(postEl) {
+    const commentSendEl = postEl.querySelector(".comment-send-icon");
+    commentSendEl.addEventListener("click", async () => {
+      const inputEl = postEl.querySelector(".comment-input");
+
+      if (inputEl.value !== "") {
+        this.showLoader(postEl, "comment-send-icon", "comment-send-loader");
+        await this.handleAddComment(postEl, inputEl);
+      }
     });
   }
 
@@ -374,62 +387,8 @@ class Post {
     inputEl.addEventListener("keypress", async (e) => {
       if (e.key === "Enter") {
         if (inputEl.value !== "") {
-          const loggedUser = userClass.getUser();
-
-          const newComment = {
-            id: this.comment_id,
-            body: inputEl.value,
-            user: {
-              id: loggedUser.id,
-              username: loggedUser.username,
-            },
-          };
-
-          try {
-            const commentResp = await CommentClass.addComment();
-
-            if (commentResp.error) {
-              inputEl.value = "";
-              throw new Error(commentResp.error);
-            }
-
-            this.comments.push(newComment);
-
-            const commentsWrapperEl = postEl.querySelector(".comments-wrapper");
-            const commentEl = commentsWrapperEl.querySelector(".comment-container");
-
-            const newCommentEl = this.cloneElement(commentEl);
-            newCommentEl.style.display = "initial";
-            newCommentEl.setAttribute("data-comment-id", `${this.post.id}-${this.comment_id}`);
-
-            this.setPostCommentInfo(newCommentEl, newComment);
-            this.setPostCommentNumber(postEl);
-            this.setPostCommentNumberText(postEl);
-
-            if (postEl.getAttribute("id") === "postModal") {
-              this.setPostCommentNumber(this.postEl);
-              this.setPostCommentNumberText(this.postEl);
-
-              const postCommentWrapperEl = this.postEl.querySelector(".comments-wrapper");
-              const clonedNewCommentEl = this.cloneElement(newCommentEl);
-              this.setCommentOptionsDropdown(
-                this.postEl,
-                clonedNewCommentEl,
-                "user",
-                this.comment_id
-              );
-              postCommentWrapperEl.appendChild(clonedNewCommentEl);
-            }
-
-            this.setCommentOptionsDropdown(postEl, newCommentEl, "user", this.comment_id);
-
-            commentsWrapperEl.appendChild(newCommentEl);
-
-            inputEl.value = "";
-            this.comment_id++;
-          } catch (error) {
-            UtilityClass.displayAlertMessage(commentResp.error, "danger", 3000);
-          }
+          this.showLoader(postEl, "comment-send-icon", "comment-send-loader");
+          await this.handleAddComment(postEl, inputEl);
         }
       }
     });
@@ -469,6 +428,78 @@ class Post {
   static handleDeleteEventListener(comments, data_id) {
     const commentId = parseInt(data_id.split("-")[1]);
     return comments.filter((comment) => comment.id !== commentId);
+  }
+
+  async handleAddComment(postEl, inputEl) {
+    try {
+      const loggedUser = userClass.getUser();
+      const commentResp = await CommentClass.addComment(inputEl.value, loggedUser.id, this.post.id);
+
+      if (commentResp.error) {
+        inputEl.value = "";
+        throw new Error(commentResp.error);
+      }
+
+      const newComment = {
+        id: this.comment_id,
+        body: inputEl.value,
+        user: {
+          id: loggedUser.id,
+          username: loggedUser.username,
+        },
+      };
+
+      this.comments.push(newComment);
+
+      this.setNewCommentElement(postEl, newComment);
+
+      inputEl.value = "";
+      this.comment_id++;
+
+      this.hideLoader(postEl, "comment-send-icon", "comment-send-loader");
+    } catch (error) {
+      this.hideLoader(postEl, "comment-send-icon", "comment-send-loader");
+      UtilityClass.displayAlertMessage(error.message, "danger", 3000);
+    }
+  }
+
+  setNewCommentElement(postEl, newComment) {
+    const commentsWrapperEl = postEl.querySelector(".comments-wrapper");
+    const commentEl = commentsWrapperEl.querySelector(".comment-container");
+
+    const newCommentEl = this.cloneElement(commentEl);
+    newCommentEl.style.display = "initial";
+    newCommentEl.setAttribute("data-comment-id", `${this.post.id}-${this.comment_id}`);
+
+    this.setPostCommentInfo(newCommentEl, newComment);
+    this.setPostCommentNumber(postEl);
+    this.setPostCommentNumberText(postEl);
+
+    if (postEl.getAttribute("id") === "postModal") {
+      this.setPostCommentNumber(this.postEl);
+      this.setPostCommentNumberText(this.postEl);
+
+      const postCommentWrapperEl = this.postEl.querySelector(".comments-wrapper");
+      const clonedNewCommentEl = this.cloneElement(newCommentEl);
+      this.setCommentOptionsDropdown(this.postEl, clonedNewCommentEl, "user", this.comment_id);
+      postCommentWrapperEl.appendChild(clonedNewCommentEl);
+    }
+
+    this.setCommentOptionsDropdown(postEl, newCommentEl, "user", this.comment_id);
+    commentsWrapperEl.appendChild(newCommentEl);
+  }
+
+  showLoader(postEl, elementClass, loaderClass) {
+    const element = postEl.querySelector(`.${elementClass}`);
+    const loaderEl = postEl.querySelector(`.${loaderClass}`);
+    element.classList.add("d-none");
+    loaderEl.classList.remove("d-none");
+  }
+  hideLoader(postEl, elementClass, loaderClass) {
+    const element = postEl.querySelector(`.${elementClass}`);
+    const loaderEl = postEl.querySelector(`.${loaderClass}`);
+    element.classList.remove("d-none");
+    loaderEl.classList.add("d-none");
   }
 }
 

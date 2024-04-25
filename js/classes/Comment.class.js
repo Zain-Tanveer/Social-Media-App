@@ -21,9 +21,9 @@ class Comment {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          body: "This makes all sense to me!",
-          postId: 32323,
-          userId: 5,
+          body,
+          postId,
+          userId,
         }),
       });
 
@@ -33,10 +33,8 @@ class Comment {
 
       const data = await response.json();
 
-      console.log(data);
       return data;
     } catch (error) {
-      console.log(error);
       return { error: error.message };
     }
   }
