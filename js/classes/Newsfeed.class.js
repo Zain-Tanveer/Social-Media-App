@@ -32,14 +32,21 @@ class Newsfeed {
 
   async setAllPosts() {
     try {
-      const { posts } = await Post.getAllPosts();
+      const response = await Post.getAllPosts();
+
+      if (response.error) {
+        throw new Error(response.error);
+      }
+
+      const { posts } = response;
 
       for (const post of posts) {
+        // add errors
         const user = await userClass.getSingleUser(post.userId);
         const response = await commentClass.getPostComments(post.id);
 
         const postObj = new Post(post, user, response.comments);
-        await postObj.createNewPost();
+        postObj.createNewPost();
       }
     } catch (error) {
       console.log(error);

@@ -1,6 +1,7 @@
 import authenticate from "./classes/Authenticate.class.js";
 import newsfeedClass from "./classes/Newsfeed.class.js";
 import Post from "./classes/Post.class.js";
+import Modal from "./classes/Modal.class.js";
 
 // this will remove that hardcoded post in html.
 document.getElementById("posts").innerHTML = "";
@@ -26,6 +27,8 @@ saySomethingEl.classList.remove("d-none");
 
 await newsfeedClass.setAllPosts(); // setting posts data
 newsfeedClass.addScrollEventListener(); // setting scroll event listener for getting more posts
+
+Modal.addDeleteModalEventListener();
 
 // this is a custom event. it is triggered every time when the last
 // post is on screen. see 'addScrollEventListener()' in newsfeed class.

@@ -68,7 +68,6 @@ class User {
       this.setUser(data);
       return data;
     } catch (error) {
-      console.log(error);
       return { error: error.message };
     }
   }

@@ -11,9 +11,21 @@ class Post {
   static #lastPostId;
 
   constructor(post, user, comments) {
+    this.postEl;
     this.post = post;
     this.user = user;
     this.comments = comments;
+    this.comment_id = 1000;
+  }
+
+  // function to set the current post element
+  setPostElement(postEl) {
+    this.postEl = postEl;
+  }
+
+  // function to get the current post element
+  getPostElement() {
+    return this.postEl;
   }
 
   // function to set initial post
@@ -66,12 +78,14 @@ class Post {
 
   // function to create a new post
   createNewPost() {
-    let newPostEl = Post.getInitialPostEl().cloneNode(true);
+    const newPostEl = Post.getInitialPostEl().cloneNode(true);
     newPostEl.classList.remove("d-none");
-    newPostEl = this.setPostData(newPostEl);
-    this.addPostEventListeners(newPostEl);
+    this.setPostElement(newPostEl);
 
-    document.getElementById("posts").appendChild(newPostEl);
+    this.setPostData(this.postEl);
+    this.addPostEventListeners(this.postEl);
+
+    document.getElementById("posts").appendChild(this.getPostElement());
   }
 
   // function to set the data of a post
@@ -84,8 +98,6 @@ class Post {
     this.setPostReactions(postEl); // setting the likes count
     this.setPostComments(postEl); // setting the comment of post
     this.setUserInfo(postEl); // setting the logged in user info on post
-
-    return postEl;
   }
 
   // function to set post modal data
@@ -102,6 +114,8 @@ class Post {
     this.setPostCommentNumberText(postModalEl); // setting the 'comment/comments' text
     this.setModalPostComments(postModalEl); // setting the comment of post
     this.setUserInfo(postModalEl); // setting the logged in user info on post
+
+    this.addCommentInputEventListener(postModalEl);
   }
 
   setPostModalTitle(modalEl) {
@@ -183,7 +197,9 @@ class Post {
     if (this.post.reactions <= 0) {
       const likesCommentsNumbersEl = postEl.querySelector(".likes-comments-numbers");
       const likesIconEl = likesCommentsNumbersEl.querySelector(".likes-icon-span");
-      likesCommentsNumbersEl.removeChild(likesIconEl);
+      if (likesIconEl) {
+        likesCommentsNumbersEl.removeChild(likesIconEl);
+      }
     } else {
       const likesNumberEl = postEl.querySelector(".likes-number");
       likesNumberEl.innerHTML = this.post.reactions;
@@ -192,14 +208,22 @@ class Post {
 
   // function to set the comments of post
   setPostComments(postEl) {
+    const commentEl = postEl.querySelector(".comment-container");
+
     if (this.comments.length > 0) {
+      const loggedUser = userClass.getUser();
+
       this.setPostCommentInfo(postEl, this.comments[0]);
       this.setPostCommentNumber(postEl);
 
-      const commentEl = postEl.querySelector(".comment-container");
-      this.setCommentOptionsDropdown(commentEl, "other");
-
       const commentsNumberEl = postEl.querySelector(".comments-number");
+
+      if (this.comments[0].user.id === loggedUser.id) {
+        commentEl.setAttribute("data-comment-id", `${this.post.id}-${this.comments[0].id}`);
+        this.setCommentOptionsDropdown(postEl, commentEl, "user", this.comments[0].id);
+      } else {
+        this.setCommentOptionsDropdown(postEl, commentEl, "other");
+      }
 
       if (this.comments.length > 1) {
         const moreCommentsEl = postEl.querySelector(".more-comments");
@@ -209,8 +233,7 @@ class Post {
         commentsNumberEl.innerHTML += " comment";
       }
     } else {
-      const commentsEl = postEl.querySelector(".comments");
-      commentsEl.style.display = "none";
+      commentEl.style.display = "none";
     }
   }
 
@@ -235,9 +258,19 @@ class Post {
 
     commentsWrapperEl.innerHTML = "";
 
+    const loggedUser = userClass.getUser();
+
     for (const comment of this.comments) {
       const newCommentEl = this.cloneElement(commentEl);
       this.setPostCommentInfo(newCommentEl, comment);
+
+      if (comment.user && comment.user.id === loggedUser.id) {
+        newCommentEl.setAttribute("data-comment-id", `${this.post.id}-${comment.id}`);
+        this.setCommentOptionsDropdown(postEl, newCommentEl, "user", comment.id);
+      } else {
+        this.setCommentOptionsDropdown(postEl, newCommentEl, "other");
+      }
+
       commentsWrapperEl.appendChild(newCommentEl);
     }
   }
@@ -254,20 +287,25 @@ class Post {
   }
 
   // function to set comment dropdown options
-  setCommentOptionsDropdown(commentEl, type = "other") {
+  setCommentOptionsDropdown(postEl, commentEl, type = "other", comment_id = null) {
     const commentDropdownEl = commentEl.querySelector(".comment-options-dropdown");
     commentDropdownEl.innerHTML = "";
 
-    this.createDropdownElements(commentDropdownEl, type);
+    this.createDropdownElements(postEl, commentDropdownEl, type, comment_id);
   }
 
-  createDropdownElements(dropdownEl, type) {
+  // function to create dropdown elements
+  createDropdownElements(postEl, dropdownEl, type, comment_id) {
     if (type === "user") {
-      const addEl = this.createDropdownLiEl("edit");
-      dropdownEl.appendChild(addEl);
-
-      const editEl = this.createDropdownLiEl("delete");
+      const editEl = this.createDropdownLiEl("edit");
+      this.addDropdownEditEventListener(postEl, editEl, comment_id);
       dropdownEl.appendChild(editEl);
+
+      const deleteEl = this.createDropdownLiEl("delete");
+      deleteEl.setAttribute("data-bs-toggle", "modal");
+      deleteEl.setAttribute("data-bs-target", "#deleteCommentModal");
+      this.addDropdownDeleteEventListener(postEl, deleteEl, `${this.post.id}-${comment_id}`);
+      dropdownEl.appendChild(deleteEl);
     } else {
       dropdownEl.appendChild(this.createDropdownLiEl("hide comment"));
       dropdownEl.appendChild(this.createDropdownLiEl("show comment"));
@@ -318,9 +356,6 @@ class Post {
     this.addCommentInputEventListener(postEl);
   }
 
-  // function to add event listeners on comments
-  addCommentsEventListeners() {}
-
   // function to add event listener for more view more comments on post
   addMoreCommentsEventListener(postEl) {
     const moreCommentsEl = postEl.querySelector(".more-comments");
@@ -334,7 +369,7 @@ class Post {
   addCommentInputEventListener(postEl) {
     const inputEl = postEl.querySelector(".comment-input");
 
-    inputEl.addEventListener("keypress", (e) => {
+    inputEl.addEventListener("keypress", async (e) => {
       if (e.key === "Enter") {
         if (inputEl.value !== "") {
           const loggedUser = userClass.getUser();
@@ -343,28 +378,84 @@ class Post {
           const commentEl = commentsWrapperEl.querySelector(".comment-container");
 
           const newComment = {
+            id: this.comment_id,
             body: inputEl.value,
             user: {
+              id: loggedUser.id,
               username: loggedUser.username,
             },
-            type: "user-comment",
           };
 
           this.comments.push(newComment);
 
           const newCommentEl = this.cloneElement(commentEl);
+          newCommentEl.style.display = "initial";
+          newCommentEl.setAttribute("data-comment-id", `${this.post.id}-${this.comment_id}`);
 
           this.setPostCommentInfo(newCommentEl, newComment);
           this.setPostCommentNumber(postEl);
           this.setPostCommentNumberText(postEl);
-          this.setCommentOptionsDropdown(newCommentEl, "user");
+
+          if (postEl.getAttribute("id") === "postModal") {
+            this.setPostCommentNumber(this.postEl);
+            this.setPostCommentNumberText(this.postEl);
+
+            const postCommentWrapperEl = this.postEl.querySelector(".comments-wrapper");
+            const clonedNewCommentEl = this.cloneElement(newCommentEl);
+            this.setCommentOptionsDropdown(
+              this.postEl,
+              clonedNewCommentEl,
+              "user",
+              this.comment_id
+            );
+            postCommentWrapperEl.appendChild(clonedNewCommentEl);
+          }
+
+          this.setCommentOptionsDropdown(postEl, newCommentEl, "user", this.comment_id);
 
           commentsWrapperEl.appendChild(newCommentEl);
 
           inputEl.value = "";
+          this.comment_id++;
         }
       }
     });
+  }
+
+  // function to add event listener on edit button in comment dropdown
+  addDropdownEditEventListener(postEl, element, comment_id) {
+    element.addEventListener("click", () => {
+      console.log(element);
+      console.log("comments", this.comments);
+      console.log("comment id", comment_id);
+    });
+  }
+
+  // function to add event listener on delete button in comment dropdown
+  addDropdownDeleteEventListener(postEl, element, data_id) {
+    element.addEventListener("click", () => {
+      const modalCommentDeleteBtn = document.getElementById("modal-comment-delete-button");
+      modalCommentDeleteBtn.setAttribute("data-id", data_id);
+
+      document.addEventListener(`deleteComment${data_id}`, () => {
+        const comments = Post.handleDeleteEventListener(this.comments, data_id);
+        this.comments = comments;
+        this.setPostCommentNumber(postEl);
+        this.setPostCommentNumberText(postEl);
+
+        if (postEl.getAttribute("id") === "postModal") {
+          this.setPostCommentNumber(this.postEl);
+          this.setPostCommentNumberText(this.postEl);
+        }
+      });
+    });
+  }
+
+  // function to handle custom delete event listener dispatched
+  // from 'addDeleteModalEventListener' in Modal class
+  static handleDeleteEventListener(comments, data_id) {
+    const commentId = parseInt(data_id.split("-")[1]);
+    return comments.filter((comment) => comment.id !== commentId);
   }
 }
 

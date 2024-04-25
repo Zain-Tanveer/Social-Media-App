@@ -2,6 +2,10 @@ p {
   margin: 0;
 }
 
+body {
+  overflow-y: scroll !important;
+}
+
 .middle {
   margin-bottom: 3rem;
 }
@@ -246,6 +250,14 @@ p {
 
 .comment-options-dropdown {
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.delete-no-button {
+  transition: background-color 0.15s ease;
+}
+
+.delete-no-button:hover {
+  background-color: #dddddd;
 }
 
 @media (min-width: 75em) {
