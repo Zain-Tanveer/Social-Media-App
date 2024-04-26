@@ -295,7 +295,7 @@
 
               <div class="middle-content | col">
                 <div class="posts-wrapper" id="posts">
-                  <div class="posts-card | card mb-4 d-none" id="static-post">
+                  <div class="posts-card | d-none card mb-4" id="static-post">
                     <div class="card-body px-0">
                       <div class="row row-cols-1 g-0 gap-2">
                         <div
@@ -444,13 +444,19 @@
                                 </div>
                               </div>
                               <div
-                                class="fs-size-200 | d-flex gap-3 ms-3 mb-3 fw-bold clr-neutral-300"
+                                class="comment-cancel-helper fs-size-200 | d-none ms-3 mb-3 fw-bold clr-neutral-300 text-primary"
+                              >
+                                <div class="comment-helper">Cancel</div>
+                              </div>
+                              <div
+                                class="comment-like-reply-helpers fs-size-200 | d-flex gap-3 ms-3 mb-3 fw-bold clr-neutral-300"
                               >
                                 <div class="comment-helper">Like</div>
                                 <div class="comment-helper">Reply</div>
                               </div>
                             </div>
                           </div>
+
                           <div class="d-flex gap-2 align-items-center">
                             <img
                               class="post-comment-user-image | rounded-circle"
@@ -703,7 +709,14 @@
                         </ul>
                       </div>
                     </div>
-                    <div class="fs-size-200 | d-flex gap-3 ms-3 mb-3 fw-bold clr-neutral-300">
+                    <div
+                      class="comment-cancel-helper fs-size-200 | d-none ms-3 mb-3 fw-bold clr-neutral-300 text-primary"
+                    >
+                      <div class="comment-helper">Cancel</div>
+                    </div>
+                    <div
+                      class="comment-like-reply-helpers fs-size-200 | d-flex gap-3 ms-3 mb-3 fw-bold clr-neutral-300"
+                    >
                       <div class="comment-helper">Like</div>
                       <div class="comment-helper">Reply</div>
                     </div>
@@ -811,6 +824,27 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <!-- comment edit box html for edit comment -->
+    <div id="comment-edit-input-group" class="comment-edit-input-group | input-group d-none">
+      <input
+        type="text"
+        class="comment-input-edit clr-neutral-300 | form-control"
+        placeholder="Comment as Zain Tanveer"
+        aria-label="comment input"
+        aria-describedby="comment-send-icon-edit"
+      />
+      <span class="comment-send-edit | input-group-text" id="comment-send-icon-edit">
+        <i class="comment-send-icon-edit | bx bx-send rounded-circle"></i>
+        <div
+          style="margin: 0.45rem"
+          class="comment-send-loader-edit | d-none spinner-border spinner-border-sm text-primary"
+          role="status"
+        >
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </span>
     </div>
 
     <script

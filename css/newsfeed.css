@@ -194,6 +194,10 @@ body {
   border-radius: 1rem;
 }
 
+.comment-edit {
+  border-radius: 1rem;
+}
+
 .more-comments {
   cursor: pointer;
 }
@@ -218,7 +222,8 @@ body {
   text-decoration: underline;
 }
 
-.comment-input {
+.comment-input,
+.comment-input-edit {
   font-size: 0.925rem;
   padding: 0.5rem 1rem;
   border-radius: 100vmax;
@@ -227,27 +232,40 @@ body {
   color: black;
 }
 
-.comment-input:focus {
+.comment-input-edit {
+  padding-inline: 0;
+  padding-left: 0.25rem;
+}
+
+.comment-input:focus,
+.comment-input-edit:focus {
   color: black;
   background-color: #f2f2f2;
   border: none;
   box-shadow: none;
 }
 
-.comment-send {
+.comment-send,
+.comment-send-edit {
   background-color: #f2f2f2;
   border: none;
   border-radius: 100vmax;
 }
 
-.comment-send i {
+.comment-send-edit {
+  padding-right: 0;
+}
+
+.comment-send i,
+.comment-send-edit i {
   padding: 0.45rem;
   color: var(--clr-primary);
   font-weight: bold;
   cursor: pointer;
 }
 
-.comment-send i:hover {
+.comment-send i:hover,
+.comment-send-edit i:hover {
   background-color: #dddddd;
 }
 

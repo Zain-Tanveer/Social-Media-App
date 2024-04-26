@@ -1,6 +1,6 @@
 import CommentClass from "./Comment.class.js";
 import userClass from "./User.class.js";
-import UtilityClass from "./Utility.class.js";
+import Utility from "./Utility.class.js";
 import Modal from "./Modal.class.js";
 
 class Post {
@@ -8,6 +8,7 @@ class Post {
   // we create other posts by cloning this post and then
   // replacing values where necessary.
   static #initialPostEl = document.getElementById("static-post");
+  static #commentEditInputEl = document.getElementById("comment-edit-input-group");
 
   static #limit = 10;
   static #skip = 0;
@@ -224,6 +225,11 @@ class Post {
 
       if (this.comments[0].user.id === loggedUser.id) {
         commentEl.setAttribute("data-comment-id", `${this.post.id}-${this.comments[0].id}`);
+
+        const commentTextEl = commentEl.querySelector(".comment");
+        const commentEditInputEl = this.createCommentEditInputElement();
+        commentTextEl.appendChild(commentEditInputEl);
+
         this.setCommentOptionsDropdown(postEl, commentEl, "user", this.comments[0].id);
       } else {
         this.setCommentOptionsDropdown(postEl, commentEl, "other");
@@ -269,6 +275,10 @@ class Post {
       this.setPostCommentInfo(newCommentEl, comment);
 
       if (comment.user && comment.user.id === loggedUser.id) {
+        const commentTextEl = newCommentEl.querySelector(".comment");
+        const commentEditInputEl = this.createCommentEditInputElement();
+        commentTextEl.appendChild(commentEditInputEl);
+
         newCommentEl.setAttribute("data-comment-id", `${this.post.id}-${comment.id}`);
         this.setCommentOptionsDropdown(postEl, newCommentEl, "user", comment.id);
       } else {
@@ -295,14 +305,14 @@ class Post {
     const commentDropdownEl = commentEl.querySelector(".comment-options-dropdown");
     commentDropdownEl.innerHTML = "";
 
-    this.createDropdownElements(postEl, commentDropdownEl, type, comment_id);
+    this.createDropdownElements(postEl, commentEl, commentDropdownEl, type, comment_id);
   }
 
   // function to create dropdown elements
-  createDropdownElements(postEl, dropdownEl, type, comment_id) {
+  createDropdownElements(postEl, commentEl, dropdownEl, type, comment_id) {
     if (type === "user") {
       const editEl = this.createDropdownLiEl("edit comment");
-      this.addDropdownEditEventListener(postEl, editEl, comment_id);
+      this.addDropdownEditEventListener(postEl, commentEl, editEl, comment_id);
       dropdownEl.appendChild(editEl);
 
       const deleteEl = this.createDropdownLiEl("delete comment");
@@ -334,11 +344,6 @@ class Post {
     return anchorEl;
   }
 
-  // function to clone a element
-  cloneElement(element) {
-    return element.cloneNode(true);
-  }
-
   // function to create hashtags for post body
   createPostBodyTags(tags) {
     const tagsDiv = document.createElement("div");
@@ -353,6 +358,18 @@ class Post {
     });
 
     return tagsDiv;
+  }
+
+  createCommentEditInputElement() {
+    const editEl = this.cloneElement(Post.#commentEditInputEl);
+    editEl.removeAttribute("id");
+
+    return editEl;
+  }
+
+  // function to clone a element
+  cloneElement(element) {
+    return element.cloneNode(true);
   }
 
   // function to add event listeners on post
@@ -397,11 +414,45 @@ class Post {
   }
 
   // function to add event listener on edit button in comment dropdown
-  addDropdownEditEventListener(postEl, element, comment_id) {
+  addDropdownEditEventListener(postEl, commentEl, element, comment_id) {
     element.addEventListener("click", () => {
-      console.log(element);
-      console.log("comments", this.comments);
-      console.log("comment id", comment_id);
+      this.setEditCommentElement(commentEl);
+      this.editCommentInputEventListener(postEl, commentEl, comment_id);
+      this.addEditCommentSendEventListener(postEl, commentEl, comment_id);
+      this.cancelCommentEditEventListener(commentEl);
+    });
+  }
+
+  addEditCommentSendEventListener(postEl, commentEl, comment_id) {
+    const commentSendEl = commentEl.querySelector(".comment-send-icon-edit");
+    commentSendEl.addEventListener("click", async () => {
+      const inputEl = commentEl.querySelector(".comment-input-edit");
+
+      if (inputEl.value !== "") {
+        this.showLoader(commentEl, "comment-send-icon-edit", "comment-send-loader-edit");
+        await this.handleEditComment(postEl, commentEl, inputEl, comment_id);
+      }
+    });
+  }
+
+  editCommentInputEventListener(postEl, commentEl, comment_id) {
+    const inputEl = commentEl.querySelector(".comment-input-edit");
+
+    inputEl.addEventListener("keypress", async (e) => {
+      if (e.key === "Enter") {
+        console.log(inputEl.value);
+        if (inputEl.value !== "") {
+          this.showLoader(commentEl, "comment-send-icon-edit", "comment-send-loader-edit");
+          await this.handleEditComment(postEl, commentEl, inputEl, comment_id);
+        }
+      }
+    });
+  }
+
+  cancelCommentEditEventListener(commentEl) {
+    const cancelEl = commentEl.querySelector(".comment-cancel-helper div");
+    cancelEl.addEventListener("click", () => {
+      this.showHideCommentElements(commentEl);
     });
   }
 
@@ -433,11 +484,11 @@ class Post {
 
           this.hideLoader(modalEl, "deleteModalDeleteText", "deleteModalLoader");
           Modal.hideDeleteCommentModal();
-          UtilityClass.displayAlertMessage("Comment deleted!", "success");
+          Utility.displayAlertMessage("Comment deleted!", "success");
         } catch (error) {
           this.hideLoader(modalEl, "deleteModalDeleteText", "deleteModalLoader");
           Modal.hideDeleteCommentModal();
-          UtilityClass.displayAlertMessage(error.message, "danger");
+          Utility.displayAlertMessage(error.message, "danger");
         }
       });
     });
@@ -488,7 +539,49 @@ class Post {
       this.hideLoader(postEl, "comment-send-icon", "comment-send-loader");
     } catch (error) {
       this.hideLoader(postEl, "comment-send-icon", "comment-send-loader");
-      UtilityClass.displayAlertMessage(error.message, "danger", 3000);
+      Utility.displayAlertMessage(error.message, "danger", 3000);
+    }
+  }
+
+  async handleEditComment(postEl, commentEl, inputEl, comment_id) {
+    try {
+      // we would pass comment id here but since the new comment is not
+      // stored in  database it would throw an error for comment not found
+      const commentResp = await CommentClass.updateComment(inputEl.value, 1);
+
+      if (commentResp.error) {
+        throw new Error(commentResp.error);
+      }
+
+      const comments = this.comments.map((comment) => {
+        if (comment.id === comment_id) {
+          const body = inputEl.value;
+          return { ...comment, body };
+        }
+
+        return comment;
+      });
+
+      this.comments = [...comments];
+
+      if (postEl.getAttribute("id") === "postModal") {
+        const postCommentContainerEl = this.postEl.querySelector(
+          `div[data-comment-id*="-${comment_id}"]`
+        );
+        const postCommentBodyEl = postCommentContainerEl.querySelector(".comment-body");
+        postCommentBodyEl.innerHTML = inputEl.value;
+      }
+
+      const commentBodyEl = commentEl.querySelector(".comment-body");
+      commentBodyEl.innerHTML = inputEl.value;
+
+      this.showHideCommentElements(commentEl);
+      this.hideLoader(commentEl, "comment-send-icon-edit", "comment-send-loader-edit");
+    } catch (error) {
+      console.log(error);
+      this.showHideCommentElements(commentEl);
+      this.hideLoader(commentEl, "comment-send-icon-edit", "comment-send-loader-edit");
+      Utility.displayAlertMessage(error.message, "danger", 3000);
     }
   }
 
@@ -504,6 +597,10 @@ class Post {
     this.setPostCommentNumber(postEl);
     this.setPostCommentNumberText(postEl);
 
+    const commentTextEl = newCommentEl.querySelector(".comment");
+    const commentEditInputEl = this.createCommentEditInputElement();
+    commentTextEl.appendChild(commentEditInputEl);
+
     if (postEl.getAttribute("id") === "postModal") {
       this.setPostCommentNumber(this.postEl);
       this.setPostCommentNumberText(this.postEl);
@@ -516,6 +613,47 @@ class Post {
 
     this.setCommentOptionsDropdown(postEl, newCommentEl, "user", this.comment_id);
     commentsWrapperEl.appendChild(newCommentEl);
+  }
+
+  setEditCommentElement(commentEl) {
+    const loggedUser = userClass.getUser();
+
+    const commentBodyEl = commentEl.querySelector(".comment-body");
+    commentBodyEl.classList.add("d-none");
+
+    const commentInputGroupEl = commentEl.querySelector(".comment-edit-input-group");
+    commentInputGroupEl.classList.remove("d-none");
+
+    const inputEl = commentEl.querySelector(".comment-input-edit");
+    inputEl.setAttribute("placeholder", `Comment as ${loggedUser.username}`);
+    inputEl.value = commentBodyEl.innerHTML;
+    inputEl.focus();
+
+    const commentOptionsEl = commentEl.querySelector(".comment-options");
+    commentOptionsEl.classList.add("d-none");
+
+    const likeReplyHelpersEl = commentEl.querySelector(".comment-like-reply-helpers");
+    likeReplyHelpersEl.classList.add("d-none");
+
+    const cancelHelperEl = commentEl.querySelector(".comment-cancel-helper");
+    cancelHelperEl.classList.remove("d-none");
+  }
+
+  showHideCommentElements(commentEl) {
+    const commentBodyEl = commentEl.querySelector(".comment-body");
+    commentBodyEl.classList.remove("d-none");
+
+    const commentInputGroupEl = commentEl.querySelector(".comment-edit-input-group");
+    commentInputGroupEl.classList.add("d-none");
+
+    const commentOptionsEl = commentEl.querySelector(".comment-options");
+    commentOptionsEl.classList.remove("d-none");
+
+    const likeReplyHelpersEl = commentEl.querySelector(".comment-like-reply-helpers");
+    likeReplyHelpersEl.classList.remove("d-none");
+
+    const cancelHelperEl = commentEl.querySelector(".comment-cancel-helper");
+    cancelHelperEl.classList.add("d-none");
   }
 
   showLoader(postEl, elementClass, loaderClass) {
