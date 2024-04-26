@@ -53,6 +53,18 @@ class Newsfeed {
     }
   }
 
+  handleNewsfeedLoaders() {
+    const leftSidebarEl = document.getElementById("left-side");
+    const leftSidebarPlaceholderEl = document.getElementById("left-side-placeholder");
+    const saySomethingEl = document.getElementById("say-something");
+    const saySomethingPlaceholderEL = document.getElementById("say-something-placeholder");
+
+    saySomethingPlaceholderEL.classList.add("d-none");
+    leftSidebarPlaceholderEl.classList.add("d-none");
+    leftSidebarEl.classList.remove("d-none");
+    saySomethingEl.classList.remove("d-none");
+  }
+
   addScrollEventListener() {
     document.body.addEventListener("scroll", Newsfeed.handleScrollEventListener);
   }

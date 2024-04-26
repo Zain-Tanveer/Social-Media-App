@@ -8,24 +8,13 @@ import Modal from "./classes/Modal.class.js";
 // this will remove that hardcoded post in html.
 document.getElementById("posts").innerHTML = "";
 
+// authenticates user. if failed will redirect
 await authenticate.isAuthenticated();
-
-// initialize all tooltips for bootstrap
-const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-[...tooltipTriggerList].map((tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl));
 
 newsfeedClass.setUser(); // setting logged in user info for class usage
 newsfeedClass.setUserData(); // setting user data in side profile
 
-const leftSidebarEl = document.getElementById("left-side");
-const leftSidebarPlaceholderEl = document.getElementById("left-side-placeholder");
-const saySomethingEl = document.getElementById("say-something");
-const saySomethingPlaceholderEL = document.getElementById("say-something-placeholder");
-
-saySomethingPlaceholderEL.classList.add("d-none");
-leftSidebarPlaceholderEl.classList.add("d-none");
-leftSidebarEl.classList.remove("d-none");
-saySomethingEl.classList.remove("d-none");
+newsfeedClass.handleNewsfeedLoaders(); // will set the styling of loaders i.e., d-none to display data
 
 await newsfeedClass.setAllPosts(); // setting posts data
 newsfeedClass.addScrollEventListener(); // setting scroll event listener for getting more posts
