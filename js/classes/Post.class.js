@@ -80,6 +80,21 @@ class Post {
     }
   }
 
+  static async getSearchPosts(search) {
+    try {
+      const response = await fetch(`https://dummyjson.com/posts/search?q=${search}&limit=4`);
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error("something went wrong");
+      }
+
+      return data;
+    } catch (error) {
+      return { error: error.message };
+    }
+  }
+
   // function to create a new post
   createNewPost() {
     const newPostEl = Post.getInitialPostEl().cloneNode(true);
@@ -564,12 +579,16 @@ class Post {
 
       this.comments = [...comments];
 
+      console.log(comment_id);
+
       if (postEl.getAttribute("id") === "postModal") {
         const postCommentContainerEl = this.postEl.querySelector(
           `div[data-comment-id*="-${comment_id}"]`
         );
-        const postCommentBodyEl = postCommentContainerEl.querySelector(".comment-body");
-        postCommentBodyEl.innerHTML = inputEl.value;
+        if (postCommentContainerEl) {
+          const postCommentBodyEl = postCommentContainerEl.querySelector(".comment-body");
+          postCommentBodyEl.innerHTML = inputEl.value;
+        }
       }
 
       const commentBodyEl = commentEl.querySelector(".comment-body");

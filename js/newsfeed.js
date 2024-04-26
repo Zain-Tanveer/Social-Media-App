@@ -2,8 +2,11 @@ import authenticate from "./classes/Authenticate.class.js";
 import newsfeedClass from "./classes/Newsfeed.class.js";
 import Post from "./classes/Post.class.js";
 import Modal from "./classes/Modal.class.js";
+import Header from "./classes/Header.class.js";
 
 // Modal.showDeleteCommentModal();
+Header.addSearchEventListener();
+Header.addSearchKeyUpEventListener();
 
 // this will remove that hardcoded post in html.
 document.getElementById("posts").innerHTML = "";

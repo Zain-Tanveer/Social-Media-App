@@ -15,6 +15,23 @@ class User {
     return localStorage.getItem("token");
   }
 
+  static async getSearchUsers(search) {
+    try {
+      const response = await fetch(
+        `https://dummyjson.com/users/search?q=${search}&limit=3&select=firstName,lastName,username,image`
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch");
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      return { error: error.message };
+    }
+  }
+
   async getSingleUser(userId) {
     try {
       const response = await fetch(`https://dummyjson.com/users/${userId}`);
@@ -72,5 +89,7 @@ class User {
     }
   }
 }
+
+export { User };
 
 export default new User();

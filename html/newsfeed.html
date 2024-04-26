@@ -104,15 +104,16 @@
             </ul>
 
             <div class="d-flex gap-3 align-items-center">
-              <div class="user-search-container | d-flex" role="search">
+              <div class="user-search-container | d-flex position-relative" role="search">
                 <input
                   class="form-control me-2"
                   type="search"
                   placeholder="Search"
                   aria-label="Search"
-                  id="user-search"
+                  id="post-search"
+                  autocomplete="off"
                 />
-                <button
+                <!-- <button
                   class="search-button nav-icon-button | btn btn-light"
                   data-bs-toggle="tooltip"
                   data-bs-placement="bottom"
@@ -121,22 +122,76 @@
                   data-bs-title="Search"
                 >
                   <i class="bx bx-search-alt-2 nav-icons"></i>
-                </button>
+                </button> -->
+
+                <div
+                  id="search-lg-dropdown"
+                  class="search-lg-dropdown | d-none d-flex p-1 flex-column position-absolute bg-white"
+                >
+                  <div id="search-post-text" class="d-none d-flex gap-2 p-2 align-items-center">
+                    <button
+                      class="dropdown-search-icon search-button nav-icon-button | btn btn-light"
+                    >
+                      <i class="bx bx-search-alt-2 nav-icons"></i>
+                    </button>
+                    <p class="fw-bold" id="search-text"></p>
+                  </div>
+
+                  <div id="search-posts">
+                    <div class="search-post | d-none d-flex gap-2 p-2 align-items-center">
+                      <button
+                        class="dropdown-search-icon search-button nav-icon-button | btn btn-light"
+                      >
+                        <i
+                          class="clr-secondary-icon | fa-solid fa-address-card"
+                          style="padding-block: 0.45rem"
+                        ></i>
+                      </button>
+                      <div class="overflow-hidden" style="line-height: 1.4; width: 20rem">
+                        <span class="search-post-title | fw-bold text-nowrap">this is a title</span>
+                        <p
+                          class="search-post-body clr-neutral-400 fs-size-250 | text-nowrap"
+                          style="width: 20rem"
+                        >
+                          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rem, debitis! In
+                          sequi repellendus quo, quod dolore ad cumque repellat magnam!
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div id="search-users">
+                    <div class="search-user | d-none d-flex gap-2 p-2 align-items-center">
+                      <img
+                        class="search-user-image | rounded-circle"
+                        src="../assets/images/Picture.jpg"
+                        alt=""
+                        style="height: 2.5rem; width: 2.5rem"
+                      />
+                      <div style="line-height: 1.4; margin-left: 0.2rem">
+                        <span class="search-user-fullname | fw-bold">john doe</span>
+                        <p class="search-user-username fs-size-250 clr-neutral-400">kimminche</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div id="no-results" class="no-results | py-2 text-secondary text-center">
+                    No results found
+                  </div>
+
+                  <div class="d-flex justify-content-center py-1">
+                    <div
+                      id="search-spinner"
+                      class="spinner-border text-dark-emphasis d-none"
+                      role="status"
+                    >
+                      <span class="visually-hidden">Loading...</span>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <ul class="navbar-nav mx-auto d-flex flex-row align-items-center gap-1">
-                <!-- <li
-                  class="search-button-mobile | nav-item py-2 me-3"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="bottom"
-                  data-bs-custom-class="custom-tooltip"
-                  data-bs-trigger="hover"
-                  data-bs-title="Search"
-                >
-                  <button class="search-button nav-icon-button | btn btn-light" type="submit">
-                    <i class="bx bx-search-alt-2 nav-icons"></i>
-                  </button>
-                </li> -->
                 <li
                   class="nav-item py-2"
                   data-bs-toggle="modal"
