@@ -58,13 +58,13 @@
   }
 }
 
-@media (min-width: 38em) {
+@media (min-width: 36em) {
   .tooltip[data-popper-placement="right"] {
     display: none;
   }
 }
 
-@media (max-width: 38em) {
+@media (max-width: 36em) {
   :root {
     --nav-width: 4.625rem;
   }
