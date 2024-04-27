@@ -4,15 +4,15 @@ import Post from "./classes/Post.class.js";
 import Modal from "./classes/Modal.class.js";
 import Header from "./classes/Header.class.js";
 
-// Modal.showDeleteCommentModal();
-Header.addSearchEventListener();
-Header.addSearchKeyUpEventListener();
-
 // this will remove that hardcoded post in html.
 document.getElementById("posts").innerHTML = "";
 
 // authenticates user. if failed will redirect
 await authenticate.isAuthenticated();
+
+Header.addSearchEventListener();
+Header.addSearchKeyUpEventListener();
+Header.addSearchPostEventListener();
 
 newsfeedClass.setUser(); // setting logged in user info for class usage
 newsfeedClass.setUserData(); // setting user data in side profile
@@ -27,7 +27,7 @@ Modal.addDeleteModalEventListener();
 // this is a custom event. it is triggered every time when the last
 // post is on screen. see 'addScrollEventListener()' in newsfeed class.
 document.addEventListener("handleNewPosts", async () => {
-  Post.setSkip(Post.getSkip() + 10); // updating the skip value to get next 10 posts
+  Post.setSkip(Post.getSkip() + Post.getLimit()); // updating the skip value to get next 10 posts
   await newsfeedClass.setAllPosts(); // getting the next 10 posts
   newsfeedClass.addScrollEventListener(); // setting scroll event listener for getting more posts
 });

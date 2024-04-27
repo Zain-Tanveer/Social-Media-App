@@ -27,14 +27,17 @@
     <link rel="stylesheet" href="../style.css" />
     <link rel="stylesheet" href="../css/header.css" />
     <link rel="stylesheet" href="../css/newsfeed.css" />
+    <link rel="stylesheet" href="../css/search.css" />
   </head>
   <body>
     <header class="primary-header | mb-4">
-      <div class="container-xl">
+      <div class="container-fluid">
         <nav class="navbar bg-white py-0">
           <div class="container-fluid">
             <div class="d-flex gap-3 align-items-center">
-              <a class="site-logo clr-primary | navbar-brand fs-2 py-0" href="#">SociableSpace</a>
+              <a class="site-logo clr-primary | navbar-brand fs-2 py-0" href="newsfeed.html"
+                >SociableSpace</a
+              >
               <div>
                 <button
                   class="search-button-mobile search-button nav-icon-button | btn btn-light"
@@ -66,14 +69,14 @@
               class="page-nav | navbar-nav mx-auto mb-lg-0 d-flex flex-row align-items-center gap-1"
             >
               <li
-                class="home-nav-item | nav-item py-2 active"
+                class="home-nav-item | nav-item py-2"
                 data-bs-toggle="tooltip"
                 data-bs-placement="bottom"
                 data-bs-custom-class="custom-tooltip"
                 data-bs-trigger="hover"
                 data-bs-title="Home"
               >
-                <a class="nav-link px-4 header-links" aria-current="page" href="#"
+                <a class="nav-link px-4 header-links" aria-current="page" href="newsfeed.html"
                   ><i class="fa fa-home"></i>
                 </a>
               </li>
@@ -226,7 +229,7 @@
     </header>
 
     <main class="main-content">
-      <div class="container-xl">
+      <div class="container-fluid">
         <div
           id="response-message"
           class="response-message | alert alert-dismissible d-none d-flex align-items-center position-fixed top-0 end-0"
@@ -246,108 +249,152 @@
           </div>
         </div>
 
-        <div class="main-grid | row p-lg-3">
-          <div class="left | col col-md-4 col-lg-3">
-            <div class="row row-cols-1 gap-4 d-none" id="left-side">
-              <div class="left-content | col">
-                <div class="card text-center">
-                  <div class="position-relative">
-                    <img
-                      class="card-img-top"
-                      src="../assets/images/banners/banner-small.webp"
-                      alt=""
-                    />
-                    <img
-                      id="side-profile-user-image"
-                      class="side-profile-image | rounded-circle position-absolute top-100 start-50 translate-middle"
-                      src="../assets/images/Picture.jpg"
-                      alt=""
-                    />
+        <div class="main-grid | d-flex justify-content-end p-lg-3">
+          <div class="side-nav | px-0 position-fixed">
+            <div class="row row-cols-1 g-0" id="left-side">
+              <div style="height: 4.2rem"></div>
+              <div id="side-nav-content" class="left-content d-none | col pb-2">
+                <div class="search-results-for | row row-cols-1 g-0 mx-3 py-3 border-bottom">
+                  <p class="fs-size-600 | fw-bolder">Search results for</p>
+                  <p id="results-for" class="clr-neutral-400"></p>
+                </div>
+
+                <div class="filters | row row-cols-1 g-0 mx-2 py-2">
+                  <div class="col">
+                    <p class="fs-size-500 | fw-bold px-2 px-md-1 mb-1">Filters</p>
                   </div>
-                  <div class="side-profile-content | card-body p-3">
-                    <h6 id="side-profile-username" class="fw-bold title">Zain Tanveer</h6>
-                    <p class="card-text lh-sm">
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum dolorem
-                      molestiae, beatae omnis quo ab.
-                    </p>
+                  <div
+                    class="side-items | col px-2 d-flex align-items-center gap-2 py-2 rounded"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="right"
+                    data-bs-title="All"
+                  >
+                    <i
+                      class="p-75 | fa-solid fa-newspaper | bg-secondary-subtle p-2 rounded-circle"
+                    ></i>
+                    <p>All</p>
+                  </div>
+                  <div
+                    class="side-items active | col px-2 d-flex align-items-center gap-2 py-2 rounded"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="right"
+                    data-bs-title="Posts"
+                  >
+                    <i
+                      class="p-75 | fa-solid fa-address-card | bg-secondary-subtle p-2 rounded-circle"
+                      style="padding-block: 0.785rem !important"
+                    ></i>
+                    <p>Posts</p>
+                  </div>
+                  <div
+                    class="side-items | col px-2 d-flex align-items-center gap-2 py-2 rounded"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="right"
+                    data-bs-title="People"
+                  >
+                    <i
+                      class="p-75 | fa-solid fa-users | bg-secondary-subtle p-2 rounded-circle"
+                      style="padding-block: 0.825rem !important"
+                    ></i>
+                    <p>People</p>
+                  </div>
+                  <div
+                    class="side-items | col px-2 d-flex align-items-center gap-2 py-2 rounded"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="right"
+                    data-bs-title="Photos"
+                  >
+                    <i
+                      class="p-75 | fa-solid fa-images | bg-secondary-subtle p-2 rounded-circle"
+                      style="padding-block: 0.825rem !important"
+                    ></i>
+                    <p>Photos</p>
+                  </div>
+                  <div
+                    class="side-items | col px-2 d-flex align-items-center gap-2 py-2 rounded"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="right"
+                    data-bs-title="Videos"
+                  >
+                    <i
+                      class="p-75 | fa-brands fa-youtube | bg-secondary-subtle p-2 rounded-circle"
+                      style="padding-block: 0.825rem !important"
+                    ></i>
+                    <p>Videos</p>
                   </div>
                 </div>
               </div>
-              <div class="left-content content | col">people</div>
-              <div class="left-content content | col">notification</div>
-            </div>
 
-            <!-- left side placeholder -->
-            <div class="row row-cols-1 gap-4" id="left-side-placeholder">
-              <div class="left-content | col">
-                <div class="card text-center">
-                  <div>
-                    <div class="card-img-top placeholder-glow">
-                      <span class="placeholder col-12 bg-secondary" style="height: 8rem"></span>
+              <div id="side-nav-placeholder">
+                <div class="left-content | col pb-2">
+                  <div class="row row-cols-1 g-0 mx-3 py-3 border-bottom">
+                    <div class="placeholder-glow">
+                      <span class="placeholder placeholder-lg bg-secondary col-7"></span>
+                    </div>
+                    <div class="placeholder-glow">
+                      <span class="placeholder bg-secondary col-4"></span>
                     </div>
                   </div>
-                  <div class="card-body p-3">
-                    <h6 class="placeholder-glow">
-                      <span class="placeholder col-8 bg-secondary"></span>
-                    </h6>
-                    <p class="card-text placeholder-glow">
-                      <span class="placeholder col-4 bg-secondary"></span>
-                      <span class="placeholder col-7 bg-secondary"></span>
-                      <span class="placeholder col-10 bg-secondary"></span>
-                      <span class="placeholder col-2 bg-secondary"></span>
-                      <span class="placeholder col-9 bg-secondary"></span>
-                    </p>
+
+                  <div class="row row-cols-1 g-0 mx-2 py-2">
+                    <div class="col">
+                      <div class="placeholder-glow">
+                        <span class="placeholder bg-secondary col-2"></span>
+                      </div>
+                    </div>
+                    <div class="col px-2 d-flex align-items-center gap-2 py-2 rounded">
+                      <div class="placeholder-glow" style="width: 2.5rem; height: 2.5rem">
+                        <span class="placeholder col-12 h-100 bg-secondary rounded-circle"></span>
+                      </div>
+
+                      <div class="placeholder-glow w-75">
+                        <span class="placeholder placeholder-lg col-3 h-100 bg-secondary"></span>
+                      </div>
+                    </div>
+                    <div class="col px-2 d-flex align-items-center gap-2 py-2 rounded">
+                      <div class="placeholder-glow" style="width: 2.5rem; height: 2.5rem">
+                        <span class="placeholder col-12 h-100 bg-secondary rounded-circle"></span>
+                      </div>
+
+                      <div class="placeholder-glow w-75">
+                        <span class="placeholder placeholder-lg col-5 h-100 bg-secondary"></span>
+                      </div>
+                    </div>
+                    <div class="col px-2 d-flex align-items-center gap-2 py-2 rounded">
+                      <div class="placeholder-glow" style="width: 2.5rem; height: 2.5rem">
+                        <span class="placeholder col-12 h-100 bg-secondary rounded-circle"></span>
+                      </div>
+
+                      <div class="placeholder-glow w-75">
+                        <span class="placeholder placeholder-lg col-4 h-100 bg-secondary"></span>
+                      </div>
+                    </div>
+                    <div class="col px-2 d-flex align-items-center gap-2 py-2 rounded">
+                      <div class="placeholder-glow" style="width: 2.5rem; height: 2.5rem">
+                        <span class="placeholder col-12 h-100 bg-secondary rounded-circle"></span>
+                      </div>
+
+                      <div class="placeholder-glow w-75">
+                        <span class="placeholder placeholder-lg col-2 h-100 bg-secondary"></span>
+                      </div>
+                    </div>
+                    <div class="col px-2 d-flex align-items-center gap-2 py-2 rounded">
+                      <div class="placeholder-glow" style="width: 2.5rem; height: 2.5rem">
+                        <span class="placeholder col-12 h-100 bg-secondary rounded-circle"></span>
+                      </div>
+
+                      <div class="placeholder-glow w-75">
+                        <span class="placeholder placeholder-lg col-5 h-100 bg-secondary"></span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="left-content content | col"></div>
-              <div class="left-content content | col"></div>
             </div>
           </div>
 
-          <div class="middle | col-12 col-md-8 col-lg-6">
-            <div class="row row-cols-1 gap-4">
-              <div class="middle-content | col">
-                <div class="card p-3 d-none" id="say-something">
-                  <div class="d-flex gap-1 align-items-center">
-                    <div class="search-image-wrapper">
-                      <img
-                        id="search-image"
-                        src="../assets/images/Picture.jpg"
-                        alt="..."
-                        class="img rounded-circle"
-                        style="width: 3rem"
-                      />
-                    </div>
-                    <div
-                      class="search-text | bg-secondary-subtle px-4 rounded-pill w-100"
-                      data-bs-toggle="modal"
-                      data-bs-target="#createPostModal"
-                    >
-                      Whats on your mind, <span id="search-username">Zain</span>?
-                    </div>
-                  </div>
-                </div>
-
-                <!-- say something placeholder -->
-                <div class="card p-3" id="say-something-placeholder">
-                  <div class="d-flex gap-1 align-items-center">
-                    <div class="placeholder-glow">
-                      <span
-                        class="placeholder col-12 bg-secondary rounded-circle"
-                        style="width: 3rem; height: 3rem"
-                      ></span>
-                    </div>
-                    <div class="placeholder-glow w-100">
-                      <span
-                        class="placeholder col-12 bg-secondary px-4 rounded-pill"
-                        style="height: 2.5rem"
-                      ></span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
+          <div class="middle">
+            <div class="row row-cols-1 gap-4 justify-content-center">
               <div class="middle-content | col">
                 <div class="posts-wrapper" id="posts">
                   <div class="posts-card | d-none card mb-4" id="static-post">
@@ -590,7 +637,7 @@
                       </div>
 
                       <div class="col px-3">
-                        <div class="placeholder-glow d-flex justify-content-around">
+                        <div class="placeholder-glow d-flex justify-content-around py-1">
                           <span
                             class="placeholder col-2 bg-secondary"
                             style="height: 1.75rem; border-radius: 4rem"
@@ -605,19 +652,28 @@
                           ></span>
                         </div>
                       </div>
+
+                      <div class="col">
+                        <div class="border-top mx-3">
+                          <div class="placeholder-glow mt-1">
+                            <span
+                              class="placeholder col-12 bg-secondary mt-2 rounded-circle"
+                              style="height: 2.25rem; width: 2.25rem"
+                            ></span>
+                            <span
+                              class="placeholder col-11 mt-2 bg-secondary rounded-pill"
+                              style="height: 2.25rem"
+                            ></span>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div class="right | col">
-            <div class="row row-cols-1 gap-4">
-              <div class="right-content content | col">notification</div>
-              <div class="right-content content | col">advertisement</div>
-              <div class="right-content content | col">people</div>
-            </div>
+            <div id="error" class="error | fs-5 text-center fw-bold d-none"></div>
           </div>
         </div>
       </div>
@@ -907,7 +963,8 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
-    <script type="module" src="../js/newsfeed.js" defer></script>
+    <script type="module" src="../js/search.js" defer></script>
+
     <script>
       // initialize all tooltips for bootstrap
       const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');

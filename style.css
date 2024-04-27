@@ -150,6 +150,7 @@ body {
 
 .modal-dialog {
   max-width: 42rem !important;
+  margin-inline: 1rem !important;
 }
 
 .modal-body::-webkit-scrollbar {
@@ -275,4 +276,8 @@ body {
 }
 .fs-size-800 {
   font-size: var(--size-800);
+}
+
+.p-75 {
+  padding: 0.75rem !important;
 }

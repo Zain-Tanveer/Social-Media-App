@@ -13,12 +13,16 @@ class Header {
     const postSearchEl = document.getElementById("post-search");
     const searchLgDropdownEl = document.getElementById("search-lg-dropdown");
 
+    postSearchEl.removeAttribute("disabled");
+
     postSearchEl.addEventListener("focus", () => {
       searchLgDropdownEl.classList.remove("d-none");
     });
 
-    postSearchEl.addEventListener("blur", () => {
-      searchLgDropdownEl.classList.add("d-none");
+    document.addEventListener("click", () => {
+      if (document.activeElement !== postSearchEl) {
+        searchLgDropdownEl.classList.add("d-none");
+      }
     });
   }
 
@@ -99,6 +103,14 @@ class Header {
   static hideLoader() {
     const spinnerEl = document.getElementById("search-spinner");
     spinnerEl.classList.add("d-none");
+  }
+
+  static addSearchPostEventListener() {
+    const searchEl = document.getElementById("search-post-text");
+    searchEl.addEventListener("click", () => {
+      const searchTextEl = document.getElementById("search-text");
+      window.open(`/html/search.html?q=${searchTextEl.innerHTML}`, "_blank");
+    });
   }
 
   static async setSearchPosts(searchEl) {

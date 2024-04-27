@@ -42,6 +42,16 @@ class Post {
     return Post.#initialPostEl;
   }
 
+  // function to set limit value
+  static setLimit(limit) {
+    Post.#limit = limit;
+  }
+
+  // function to get limit value
+  static getLimit() {
+    return Post.#limit;
+  }
+
   // function to set skip value
   static setSkip(skip) {
     Post.#skip = skip;
@@ -80,9 +90,11 @@ class Post {
     }
   }
 
-  static async getSearchPosts(search) {
+  static async getSearchPosts(search, limit = 4, skip = 0) {
     try {
-      const response = await fetch(`https://dummyjson.com/posts/search?q=${search}&limit=4`);
+      const response = await fetch(
+        `https://dummyjson.com/posts/search?q=${search}&limit=${limit}&skip=${skip}`
+      );
       const data = await response.json();
 
       if (!response.ok) {
