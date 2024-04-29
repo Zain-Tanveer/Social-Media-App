@@ -48,8 +48,10 @@ class Newsfeed {
         const postObj = new Post(post, user, response.comments);
         postObj.createNewPost();
       }
+
+      return {};
     } catch (error) {
-      console.log(error);
+      return { error: error.message };
     }
   }
 

@@ -10,26 +10,39 @@ document.getElementById("posts").innerHTML = "";
 // authenticates user. if failed will redirect
 await authenticate.isAuthenticated();
 
-Header.addSearchEventListener();
-Header.addSearchKeyUpEventListener();
-Header.addSearchPostEventListener();
+(async () => {
+  if (document.body.clientWidth <= 960) {
+    const containerEl = document.querySelector(".search-dropdown");
+    Header.setContainerElement(containerEl);
+  }
 
-newsfeedClass.setUser(); // setting logged in user info for class usage
-newsfeedClass.setUserData(); // setting user data in side profile
+  Header.addSearchKeyUpEventListener();
+  Header.addSearchPostEventListener();
+  Header.addSearchEventListener();
 
-newsfeedClass.handleNewsfeedLoaders(); // will set the styling of loaders i.e., d-none to display data
+  newsfeedClass.setUser(); // setting logged in user info for class usage
+  newsfeedClass.setUserData(); // setting user data in side profile
 
-await newsfeedClass.setAllPosts(); // setting posts data
-newsfeedClass.addScrollEventListener(); // setting scroll event listener for getting more posts
+  newsfeedClass.handleNewsfeedLoaders(); // will set the styling of loaders i.e., d-none to display data
 
-Modal.addDeleteModalEventListener();
+  const response = await newsfeedClass.setAllPosts();
+  if (response.error) {
+    if (response.error.includes("no posts")) {
+      // search.hidePostLoader();
+      // search.showError(response.error);
+    }
+    return;
+  }
 
-// this is a custom event. it is triggered every time when the last
-// post is on screen. see 'addScrollEventListener()' in newsfeed class.
-document.addEventListener("handleNewPosts", async () => {
-  Post.setSkip(Post.getSkip() + Post.getLimit()); // updating the skip value to get next 10 posts
-  await newsfeedClass.setAllPosts(); // getting the next 10 posts
   newsfeedClass.addScrollEventListener(); // setting scroll event listener for getting more posts
-});
 
-console.log("after posts");
+  Modal.addDeleteModalEventListener();
+
+  // this is a custom event. it is triggered every time when the last
+  // post is on screen. see 'addScrollEventListener()' in newsfeed class.
+  document.addEventListener("handleNewPosts", async () => {
+    Post.setSkip(Post.getSkip() + Post.getLimit()); // updating the skip value to get next 10 posts
+    await newsfeedClass.setAllPosts(); // getting the next 10 posts
+    newsfeedClass.addScrollEventListener(); // setting scroll event listener for getting more posts
+  });
+})();

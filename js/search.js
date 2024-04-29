@@ -8,14 +8,17 @@ document.getElementById("posts").innerHTML = "";
 
 await AuthenticateClass.isAuthenticated();
 
-myFunction();
-
-async function myFunction() {
+(async () => {
   const search = new Search();
   search.handleSearchParam();
   search.setSearchResultsFor();
   search.hideSideNavLoader();
   search.showSideNav();
+
+  if (document.body.clientWidth <= 960) {
+    const containerEl = document.querySelector(".search-dropdown");
+    Header.setContainerElement(containerEl);
+  }
 
   Header.addSearchEventListener();
   Header.addSearchKeyUpEventListener();
@@ -47,4 +50,4 @@ async function myFunction() {
       search.hidePostLoader();
     }
   });
-}
+})();

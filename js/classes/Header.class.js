@@ -2,6 +2,7 @@ import Post from "./Post.class.js";
 import { User } from "./User.class.js";
 
 class Header {
+  static #containerElement = document.querySelector(".user-search-container");
   static #searchPostElement = document.querySelector(".search-post");
   static #searchUserElement = document.querySelector(".search-user");
 
@@ -9,28 +10,32 @@ class Header {
 
   constructor() {}
 
-  static addSearchEventListener() {
-    const postSearchEl = document.getElementById("post-search");
-    const searchLgDropdownEl = document.getElementById("search-lg-dropdown");
+  static setContainerElement(element) {
+    Header.#containerElement = element;
+  }
 
-    postSearchEl.removeAttribute("disabled");
+  static addSearchEventListener() {
+    const postSearchEl = document.querySelector(".user-search-container #post-search");
+    const searchDropdownEl = document.querySelector(".user-search-container #search-lg-dropdown");
 
     postSearchEl.addEventListener("focus", () => {
-      searchLgDropdownEl.classList.remove("d-none");
+      searchDropdownEl.classList.remove("d-none");
     });
 
     document.addEventListener("click", () => {
       if (document.activeElement !== postSearchEl) {
-        searchLgDropdownEl.classList.add("d-none");
+        searchDropdownEl.classList.add("d-none");
       }
     });
   }
 
   static addSearchKeyUpEventListener() {
-    const postSearchEl = document.getElementById("post-search");
+    console.log(Header.#containerElement);
+    const postSearchEl = Header.#containerElement.querySelector("#post-search");
+    postSearchEl.removeAttribute("disabled");
 
-    const postsEl = document.getElementById("search-posts");
-    const usersEl = document.getElementById("search-posts");
+    const postsEl = Header.#containerElement.querySelector("#search-posts");
+    const usersEl = Header.#containerElement.querySelector("#search-posts");
 
     postsEl.innerHTML = "";
     usersEl.innerHTML = "";
@@ -47,8 +52,8 @@ class Header {
           clearTimeout(Header.#timeoutId);
 
           if (
-            document.getElementById("search-posts").innerHTML === "" &&
-            document.getElementById("search-posts").innerHTML === ""
+            Header.#containerElement.querySelector("#search-posts").innerHTML === "" &&
+            Header.#containerElement.querySelector("#search-posts").innerHTML === ""
           ) {
             Header.showLoader();
           }
@@ -61,54 +66,54 @@ class Header {
           Header.hideSearchTextElement();
           Header.showNoResultsElement();
 
-          document.getElementById("search-posts").innerHTML = "";
-          document.getElementById("search-users").innerHTML = "";
+          Header.#containerElement.querySelector("#search-posts").innerHTML = "";
+          Header.#containerElement.querySelector("#search-users").innerHTML = "";
         }
       }
     });
   }
 
   static setSearchTextElement(postSearchEl) {
-    const searchTextEl = document.getElementById("search-text");
+    const searchTextEl = Header.#containerElement.querySelector("#search-text");
     searchTextEl.innerHTML = postSearchEl.value;
 
     Header.showSearchTextElement();
   }
 
   static hideNoResultsElement() {
-    const noResultsEl = document.getElementById("no-results");
+    const noResultsEl = Header.#containerElement.querySelector("#no-results");
     noResultsEl.classList.add("d-none");
   }
 
   static showNoResultsElement() {
-    const noResultsEl = document.getElementById("no-results");
+    const noResultsEl = Header.#containerElement.querySelector("#no-results");
     noResultsEl.classList.remove("d-none");
   }
 
   static hideSearchTextElement() {
-    const searchPostTextEl = document.getElementById("search-post-text");
+    const searchPostTextEl = Header.#containerElement.querySelector("#search-post-text");
     searchPostTextEl.classList.add("d-none");
   }
 
   static showSearchTextElement() {
-    const searchPostTextEl = document.getElementById("search-post-text");
+    const searchPostTextEl = Header.#containerElement.querySelector("#search-post-text");
     searchPostTextEl.classList.remove("d-none");
   }
 
   static showLoader() {
-    const spinnerEl = document.getElementById("search-spinner");
+    const spinnerEl = Header.#containerElement.querySelector("#search-spinner");
     spinnerEl.classList.remove("d-none");
   }
 
   static hideLoader() {
-    const spinnerEl = document.getElementById("search-spinner");
+    const spinnerEl = Header.#containerElement.querySelector("#search-spinner");
     spinnerEl.classList.add("d-none");
   }
 
   static addSearchPostEventListener() {
-    const searchEl = document.getElementById("search-post-text");
+    const searchEl = Header.#containerElement.querySelector("#search-post-text");
     searchEl.addEventListener("click", () => {
-      const searchTextEl = document.getElementById("search-text");
+      const searchTextEl = Header.#containerElement.querySelector("#search-text");
       window.open(`/html/search.html?q=${searchTextEl.innerHTML}`, "_blank");
     });
   }
@@ -118,7 +123,7 @@ class Header {
       const data = await Post.getSearchPosts(searchEl.value);
 
       if (!data.error) {
-        const searchPostsEl = document.getElementById("search-posts");
+        const searchPostsEl = Header.#containerElement.querySelector("#search-posts");
 
         const posts = data.posts;
         if (posts.length > 0) {
@@ -152,7 +157,7 @@ class Header {
 
       if (!data.error) {
         const users = data.users;
-        const searchUsersEl = document.getElementById("search-users");
+        const searchUsersEl = Header.#containerElement.querySelector("#search-users");
         if (users.length > 0) {
           searchUsersEl.innerHTML = "";
 

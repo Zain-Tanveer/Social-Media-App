@@ -20,7 +20,7 @@
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
 }
 
-#search-post-text,
+.search-post-text,
 .search-user,
 .search-post {
   border-radius: 5px;
@@ -28,7 +28,7 @@
   transition: all 0.2s ease-in;
 }
 
-#search-post-text:hover,
+.search-post-text:hover,
 .search-user:hover,
 .search-post:hover {
   color: #000;
