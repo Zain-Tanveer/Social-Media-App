@@ -13,10 +13,14 @@ class Newsfeed {
 
   setUserData() {
     this.#setUserImage("side-profile-user-image");
-    this.#setUsername("side-profile-username", `${this.user.firstName} ${this.user.lastName}`);
+    this.#setText("side-profile-username", `${this.user.firstName} ${this.user.lastName}`);
+    this.#setText("side-username", `${this.user.username}`);
+    this.#setText("firstName", `${this.user.firstName}`);
+    this.#setText("company", `${this.user.company.name}`);
+    this.#setText("position", `${this.user.company.title}`);
 
     this.#setUserImage("search-image");
-    this.#setUsername("search-username", this.user.firstName);
+    this.#setText("search-username", this.user.firstName);
   }
 
   #setUserImage(userImageElId) {
@@ -25,9 +29,9 @@ class Newsfeed {
     imageEl.setAttribute("alt", this.user.username);
   }
 
-  #setUsername(usernameElId, text) {
-    const nameEl = document.getElementById(usernameElId);
-    nameEl.innerHTML = text;
+  #setText(elementId, text) {
+    const element = document.getElementById(elementId);
+    element.innerHTML = text;
   }
 
   async setAllPosts() {
@@ -65,6 +69,13 @@ class Newsfeed {
     leftSidebarPlaceholderEl.classList.add("d-none");
     leftSidebarEl.classList.remove("d-none");
     saySomethingEl.classList.remove("d-none");
+  }
+
+  addSidePostProfileEventListener() {
+    const imageEl = document.getElementById("side-profile-user-image");
+    imageEl.addEventListener("click", () => {
+      window.location.href = `/html/profile.html?id=${this.user.id}`;
+    });
   }
 
   addScrollEventListener() {

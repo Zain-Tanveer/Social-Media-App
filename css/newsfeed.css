@@ -36,14 +36,20 @@ body {
 }
 
 .side-profile-image {
+  cursor: pointer;
   width: 32%;
   max-width: 7rem;
   max-height: 7rem;
   background-color: white;
+  transition: box-shadow 0.3s ease;
+}
+
+.side-profile-image:hover {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .side-profile-content {
-  margin-top: 4vw;
+  margin-top: 3vw;
 }
 
 .side-profile-content .title {

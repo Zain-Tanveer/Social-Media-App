@@ -26,6 +26,7 @@ await authenticate.isAuthenticated();
 
   newsfeedClass.setUser(); // setting logged in user info for class usage
   newsfeedClass.setUserData(); // setting user data in side profile
+  newsfeedClass.addSidePostProfileEventListener();
 
   newsfeedClass.handleNewsfeedLoaders(); // will set the styling of loaders i.e., d-none to display data
 
