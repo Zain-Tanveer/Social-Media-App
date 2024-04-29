@@ -1,5 +1,5 @@
 import Post from "./Post.class.js";
-import { User } from "./User.class.js";
+import UserClass, { User } from "./User.class.js";
 
 class Header {
   static #containerElement = document.querySelector(".user-search-container");
@@ -77,11 +77,40 @@ class Header {
     });
   }
 
+  static setProfileSettingsUser() {
+    const user = UserClass.getUser();
+
+    const imageEl = document.querySelector("#profile-settings-user img");
+    imageEl.setAttribute("src", user.image);
+    imageEl.setAttribute("alt", user.username);
+
+    const nameEl = document.querySelector("#profile-settings-user p");
+    nameEl.innerHTML = user.username;
+
+    const settingsUserEl = document.getElementById("profile-settings-user");
+    settingsUserEl.addEventListener("click", () => {
+      window.location.href = `/html/profile.html?id=${user.id}`;
+    });
+  }
+
+  static addLogoutEventListener() {
+    const logoutEl = document.getElementById("logout");
+    logoutEl.addEventListener("click", () => {
+      console.log("click");
+      UserClass.logoutUser();
+    });
+  }
+
   static setSearchTextElement(postSearchEl) {
     const searchTextEl = Header.#containerElement.querySelector("#search-text");
     searchTextEl.innerHTML = postSearchEl.value;
 
     Header.showSearchTextElement();
+  }
+
+  static enableUserSettings() {
+    const buttonEl = document.getElementById("profile-settings-button");
+    buttonEl.disabled = false;
   }
 
   static hideNoResultsElement() {

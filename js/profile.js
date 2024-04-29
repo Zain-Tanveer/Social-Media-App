@@ -18,6 +18,10 @@ const profile = new Profile();
     return;
   }
 
+  Header.setProfileSettingsUser();
+  Header.enableUserSettings();
+  Header.addLogoutEventListener();
+
   NewsfeedClass.setUser(); // setting logged in user info for class usage
 
   profile.setUserIntro();

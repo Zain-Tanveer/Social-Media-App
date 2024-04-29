@@ -6,15 +6,18 @@ class Authenticate {
   async isAuthenticated() {
     try {
       const token = userClass.getToken();
+
+      if (!token) {
+        throw new Error("Unauthorized! Please login.");
+      }
+
       const response = await userClass.getAuthenticatedUser(token);
 
-      console.log(response);
-
       if (response.error) {
-        // window.location.href = `../index.html?error=Unauthorized! Please log in.`;
+        throw new Error(response.error);
       }
     } catch (error) {
-      console.log("auth error:", error);
+      window.location.href = `../index.html?error=Unauthorized! Please log in.`;
     }
   }
 }

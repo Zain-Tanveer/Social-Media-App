@@ -15,6 +15,10 @@ await AuthenticateClass.isAuthenticated();
   search.hideSideNavLoader();
   search.showSideNav();
 
+  Header.setProfileSettingsUser();
+  Header.enableUserSettings();
+  Header.addLogoutEventListener();
+
   if (document.body.clientWidth <= 960) {
     const containerEl = document.querySelector(".search-dropdown");
     Header.setContainerElement(containerEl);

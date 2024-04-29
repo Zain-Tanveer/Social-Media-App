@@ -266,17 +266,66 @@
                     <i class="fa fa-plus nav-icons"></i>
                   </button>
                 </li>
-                <li
-                  class="nav-item py-2"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="bottom"
-                  data-bs-custom-class="custom-tooltip"
-                  data-bs-trigger="hover"
-                  data-bs-title="Profile Settings"
-                >
-                  <button class="nav-icon-button | btn btn-light" type="submit">
-                    <i class="fa-solid fa-user-gear nav-icons"></i>
-                  </button>
+                <li class="nav-item py-2">
+                  <div class="profile-settings-dropdown | dropstart">
+                    <button
+                      id="profile-settings-button"
+                      class="nav-icon-button | btn btn-light"
+                      type="submit"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      disabled
+                    >
+                      <i class="fa-solid fa-user-gear nav-icons"></i>
+                    </button>
+
+                    <div class="dropdown-menu position-absolute py-1">
+                      <div
+                        id="profile-settings-user"
+                        class="profile-settings-item | d-flex align-items-center gap-2 px-2 py-1 mx-1 rounded"
+                      >
+                        <img class="rounded-circle" src="/assets/images/Picture.jpg" alt="" />
+                        <p class="fw-bold">Zain Tanveer</p>
+                      </div>
+
+                      <div class="mx-3 my-1 bg-secondary-subtle" style="height: 1px"></div>
+
+                      <div
+                        class="profile-settings-item | d-flex align-items-center gap-2 px-2 py-1 mx-1 rounded"
+                      >
+                        <i class="fa-solid fa-gear | rounded-circle bg-secondary-subtle"></i>
+                        <p class="fw-bold">Settings & Privacy</p>
+                      </div>
+                      <div
+                        class="profile-settings-item | d-flex align-items-center gap-2 px-2 py-1 mx-1 rounded"
+                      >
+                        <i class="fa-solid fa-circle-info | rounded-circle bg-secondary-subtle"></i>
+                        <p class="fw-bold">Help & Support</p>
+                      </div>
+                      <div
+                        class="profile-settings-item | d-flex align-items-center gap-2 px-2 py-1 mx-1 rounded"
+                      >
+                        <i
+                          class="fa-solid fa-moon | rounded-circle bg-secondary-subtle"
+                          style="padding-inline: 0.75rem"
+                        ></i>
+                        <p class="fw-bold">Display & Accessibility</p>
+                      </div>
+
+                      <div class="mx-3 my-1 bg-secondary-subtle" style="height: 1px"></div>
+
+                      <div
+                        id="logout"
+                        class="profile-settings-item | d-flex align-items-center gap-2 px-2 py-1 mx-1 rounded"
+                      >
+                        <i
+                          class="fa-solid fa-right-from-bracket | rounded-circle bg-secondary-subtle"
+                        ></i>
+                        <p class="fw-bold">Logout</p>
+                      </div>
+                    </div>
+                  </div>
                 </li>
               </ul>
             </div>

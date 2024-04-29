@@ -88,6 +88,11 @@ class User {
       return { error: error.message };
     }
   }
+
+  logoutUser() {
+    localStorage.clear();
+    window.location.href = "/index.html";
+  }
 }
 
 export { User };
