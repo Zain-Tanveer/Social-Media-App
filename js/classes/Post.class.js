@@ -107,6 +107,23 @@ class Post {
     }
   }
 
+  static async getUserPosts(userId, limit = 10, skip = 0) {
+    try {
+      const response = await fetch(
+        `https://dummyjson.com/posts/user/${userId}?limit=${limit}&skip=${skip}`
+      );
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error("something went wrong");
+      }
+
+      return data;
+    } catch (error) {
+      return { error: error.message };
+    }
+  }
+
   // function to create a new post
   createNewPost() {
     const newPostEl = Post.getInitialPostEl().cloneNode(true);

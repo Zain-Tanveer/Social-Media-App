@@ -10,7 +10,7 @@
 }
 
 .profile-background-image {
-  height: 25rem;
+  max-height: 25rem;
   overflow: hidden;
 }
 

@@ -22,7 +22,7 @@ await AuthenticateClass.isAuthenticated();
 
   Header.addSearchEventListener();
   Header.addSearchKeyUpEventListener();
-  search.addSearchPostEventListener();
+  search.addSearchPostEventListener(Header.getContainerElement());
 
   NewsfeedClass.setUser(); // setting logged in user info for class usage
 
@@ -40,7 +40,7 @@ await AuthenticateClass.isAuthenticated();
   Modal.addDeleteModalEventListener();
 
   // this is a custom event. it is triggered every time when the last
-  // post is on screen. see 'addScrollEventListener()' in newsfeed class.
+  // post is on screen. see 'addScrollEventListener()' in search class.
   document.addEventListener("handleNewPosts", async () => {
     search.setSkip(search.getSkip() + search.getLimit()); // updating the skip value to get next 10 posts
     if (search.getSkip() < search.getTotal()) {

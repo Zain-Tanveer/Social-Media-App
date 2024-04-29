@@ -132,10 +132,10 @@ class Search {
     }
   }
 
-  addSearchPostEventListener() {
-    const searchEl = document.getElementById("search-post-text");
+  addSearchPostEventListener(containerEl) {
+    const searchEl = containerEl.querySelector("#search-post-text");
     searchEl.addEventListener("click", () => {
-      const searchTextEl = document.getElementById("search-text");
+      const searchTextEl = containerEl.querySelector("#search-text");
       window.location.href = `/html/search.html?q=${searchTextEl.innerHTML}`;
     });
   }

@@ -14,6 +14,10 @@ class Header {
     Header.#containerElement = element;
   }
 
+  static getContainerElement() {
+    return Header.#containerElement;
+  }
+
   static addSearchEventListener() {
     const postSearchEl = document.querySelector(".user-search-container #post-search");
     const searchDropdownEl = document.querySelector(".user-search-container #search-lg-dropdown");
@@ -30,7 +34,6 @@ class Header {
   }
 
   static addSearchKeyUpEventListener() {
-    console.log(Header.#containerElement);
     const postSearchEl = Header.#containerElement.querySelector("#post-search");
     postSearchEl.removeAttribute("disabled");
 
@@ -65,6 +68,7 @@ class Header {
         } else {
           Header.hideSearchTextElement();
           Header.showNoResultsElement();
+          Header.hideLoader();
 
           Header.#containerElement.querySelector("#search-posts").innerHTML = "";
           Header.#containerElement.querySelector("#search-users").innerHTML = "";

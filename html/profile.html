@@ -35,7 +35,9 @@
         <nav class="navbar bg-white py-0">
           <div class="container-fluid">
             <div class="d-flex gap-3 align-items-center">
-              <a class="site-logo clr-primary | navbar-brand fs-2 py-0" href="#">SociableSpace</a>
+              <a class="site-logo clr-primary | navbar-brand fs-2 py-0" href="newsfeed.html"
+                >SociableSpace</a
+              >
               <div>
                 <button
                   class="search-button-mobile search-button nav-icon-button | btn btn-light"
@@ -130,14 +132,14 @@
               class="page-nav | navbar-nav mx-auto mb-lg-0 d-flex flex-row align-items-center gap-1"
             >
               <li
-                class="home-nav-item | nav-item py-2 active"
+                class="home-nav-item | nav-item py-2"
                 data-bs-toggle="tooltip"
                 data-bs-placement="bottom"
                 data-bs-custom-class="custom-tooltip"
                 data-bs-trigger="hover"
                 data-bs-title="Home"
               >
-                <a class="nav-link px-4 header-links" aria-current="page" href="#"
+                <a class="nav-link px-4 header-links" aria-current="page" href="newsfeed.html"
                   ><i class="fa fa-home"></i>
                 </a>
               </li>
@@ -283,7 +285,87 @@
     </header>
 
     <main class="main-content">
-      <div class="user-profile | col-12" style="min-height: 400px">
+      <!-- user profile placeholder -->
+      <div id="user-profile-placeholder" class="user-profile">
+        <div class="container-lg p-0 bg-white">
+          <div class="placeholder-glow rounded-bottom" style="height: 22rem">
+            <span class="placeholder bg-secondary col-12 w-100 h-100"></span>
+          </div>
+
+          <div>
+            <div class="py-3 mx-4 d-flex align-items-center gap-3 border-bottom">
+              <div class="profile-image | placeholder-glow">
+                <span
+                  class="placeholder bg-secondary col-12 rounded-circle w-100"
+                  style="height: 9rem"
+                ></span>
+              </div>
+
+              <div class="d-flex justify-content-between w-100 flex-column flex-md-row">
+                <div class="user-profile-info d-flex flex-column gap-1" style="width: 10rem">
+                  <h2 class="placeholder-glow mb-0 fw-bolder">
+                    <span class="placeholder bg-secondary col-12"></span>
+                  </h2>
+                  <p class="placeholder-glow">
+                    <span class="placeholder col-8 bg-secondary"></span>
+                  </p>
+                </div>
+
+                <div class="user-profile-options align-content-end mt-2 mt-md-0">
+                  <div class="btn btn-light bg-secondary-subtle me-1">
+                    <span class="fw-bold opacity-0">Add a story</span>
+                  </div>
+                  <div class="btn btn-light bg-secondary-subtle me-1">
+                    <span class="fw-bold opacity-0">Edit profile</span>
+                  </div>
+                  <button class="btn btn-light bg-secondary-subtle d-none d-md-inline">
+                    <i class="fa-solid fa-caret-down px-2 opacity-0"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="profile-navbar | mx-4">
+              <div class="row g-0">
+                <div class="col-10 col-md-11 d-flex">
+                  <div class="profile-nav-items active clr-neutral-300">
+                    <div class="rounded my-2 py-2 px-3 fw-bold">Posts</div>
+                  </div>
+                  <div class="profile-nav-items clr-neutral-300">
+                    <div class="rounded my-2 py-2 px-3 fw-bold">About</div>
+                  </div>
+                  <div class="profile-nav-items clr-neutral-300 d-none d-sm-inline">
+                    <div class="rounded my-2 py-2 px-3 fw-bold">Friends</div>
+                  </div>
+                  <div class="profile-nav-items clr-neutral-300 d-none d-md-inline">
+                    <div class="rounded my-2 py-2 px-3 fw-bold">Photos</div>
+                  </div>
+                  <div class="profile-nav-items clr-neutral-300 d-none d-md-inline">
+                    <div class="rounded my-2 py-2 px-3 fw-bold">Videos</div>
+                  </div>
+                  <div class="profile-nav-items clr-neutral-300 d-none d-md-inline">
+                    <div class="rounded my-2 py-2 px-3 fw-bold">Reels</div>
+                  </div>
+                  <div class="profile-nav-items clr-neutral-300">
+                    <div class="rounded my-2 py-2 px-3 fw-bold">
+                      <span class="me-1">More</span> <i class="fa-solid fa-caret-down"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-2 col-md-1">
+                  <div
+                    class="profile-nav-options | btn btn-light bg-secondary-subtle rounded ms-auto px-3 py-2 my-2"
+                  >
+                    <i class="fa-solid fa-ellipsis"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="user-profile" class="user-profile d-none">
         <div class="container-lg p-0 bg-white">
           <div class="profile-background-image rounded-bottom">
             <img class="w-100" src="../assets/images/profile-background.jpg" alt="" />
@@ -292,23 +374,71 @@
           <div>
             <div class="py-3 mx-4 d-flex align-items-center gap-3 border-bottom">
               <div class="profile-image">
-                <img class="rounded-circle" src="../assets/images/Picture.jpg" alt="" />
+                <img
+                  id="profile-image"
+                  class="rounded-circle"
+                  src="../assets/images/Picture.jpg"
+                  alt=""
+                />
               </div>
 
-              <div class="d-flex justify-content-between w-100">
+              <div
+                class="d-flex justify-content-between flex-column flex-md-row gap-2 gap-md-0 w-100"
+              >
                 <div class="user-profile-info d-flex flex-column gap-1">
-                  <h2 class="mb-0 fw-bolder">Zain Tanveer</h2>
-                  <p class="clr-neutral-300 | fw-bold">121 friends</p>
+                  <h2 id="profile-fullname" class="mb-0 fw-bolder">Zain Tanveer</h2>
+                  <p id="profile-username" class="clr-neutral-300 | fw-bold">kimminche</p>
                 </div>
 
-                <div class="user-profile-options align-content-end">
-                  <button class="btn btn-primary me-1">
-                    <i class="fa-solid fa-plus me-1"></i> <span class="fw-bold">Add a story</span>
-                  </button>
-                  <button class="btn btn-light bg-secondary-subtle me-1">
-                    <i class="fa-solid fa-pen me-1"></i> <span class="fw-bold">Edit profile</span>
-                  </button>
-                  <button class="btn btn-light bg-secondary-subtle">
+                <div class="user-profile-options d-flex align-items-end">
+                  <div id="profile-options-logged-user" class="me-1 d-none">
+                    <button
+                      class="btn btn-primary me-1"
+                      data-bs-toggle="tooltip"
+                      data-bs-placement="bottom"
+                      data-bs-title="Add a story"
+                    >
+                      <i class="fa-solid fa-plus me-sm-1"></i>
+                      <span class="fw-bold d-none d-sm-inline">Add a story</span>
+                    </button>
+                    <button
+                      class="btn btn-light bg-secondary-subtle me-1"
+                      data-bs-toggle="tooltip"
+                      data-bs-placement="bottom"
+                      data-bs-title="Edit profile"
+                    >
+                      <i class="fa-solid fa-pen me-1"></i>
+                      <span class="fw-bold d-none d-sm-inline">Edit profile</span>
+                    </button>
+                  </div>
+
+                  <div id="profile-options-other-users" class="me-1 d-none">
+                    <button
+                      class="btn btn-light bg-secondary-subtle me-1"
+                      data-bs-toggle="tooltip"
+                      data-bs-placement="bottom"
+                      data-bs-title="Friends"
+                    >
+                      <i class="fa-solid fa-user-check me-sm-1"></i>
+                      <span class="fw-bold d-none d-sm-inline">Friends</span>
+                    </button>
+                    <button
+                      class="btn btn-primary me-1"
+                      data-bs-toggle="tooltip"
+                      data-bs-placement="bottom"
+                      data-bs-title="Message"
+                    >
+                      <i class="fa-solid fa-message me-sm-1"></i>
+                      <span class="fw-bold d-none d-sm-inline">Message</span>
+                    </button>
+                  </div>
+                  <button
+                    class="btn btn-light bg-secondary-subtle"
+                    style="height: fit-content"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="bottom"
+                    data-bs-title="More"
+                  >
                     <i class="fa-solid fa-caret-down px-2"></i>
                   </button>
                 </div>
@@ -324,16 +454,16 @@
                   <div class="profile-nav-items clr-neutral-300">
                     <div class="rounded my-2 py-2 px-3 fw-bold">About</div>
                   </div>
-                  <div class="profile-nav-items clr-neutral-300">
+                  <div class="profile-nav-items clr-neutral-300 d-none d-sm-inline">
                     <div class="rounded my-2 py-2 px-3 fw-bold">Friends</div>
                   </div>
-                  <div class="profile-nav-items clr-neutral-300">
+                  <div class="profile-nav-items clr-neutral-300 d-none d-md-inline">
                     <div class="rounded my-2 py-2 px-3 fw-bold">Photos</div>
                   </div>
-                  <div class="profile-nav-items clr-neutral-300">
+                  <div class="profile-nav-items clr-neutral-300 d-none d-md-inline">
                     <div class="rounded my-2 py-2 px-3 fw-bold">Videos</div>
                   </div>
-                  <div class="profile-nav-items clr-neutral-300">
+                  <div class="profile-nav-items clr-neutral-300 d-none d-md-inline">
                     <div class="rounded my-2 py-2 px-3 fw-bold">Reels</div>
                   </div>
                   <div class="profile-nav-items clr-neutral-300">
@@ -375,68 +505,88 @@
           </div>
         </div>
 
-        <div class="main-grid | row p-lg-3">
+        <div class="main-grid | row p-3">
           <div class="left-profile | col-12 col-md-5">
-            <div class="row row-cols-1 gap-4 d-none" id="left-side">
+            <div class="row row-cols-1 gap-4" id="left-side">
               <div class="left-content | col">
-                <div class="card text-center">
-                  <div class="position-relative">
-                    <img
-                      class="card-img-top"
-                      src="../assets/images/banners/banner-small.webp"
-                      alt=""
-                    />
-                    <img
-                      id="side-profile-user-image"
-                      class="side-profile-image | rounded-circle position-absolute top-100 start-50 translate-middle"
-                      src="../assets/images/Picture.jpg"
-                      alt=""
-                    />
-                  </div>
-                  <div class="side-profile-content | card-body p-3">
-                    <h6 id="side-profile-username" class="fw-bold title">Zain Tanveer</h6>
-                    <p class="card-text lh-sm">
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum dolorem
-                      molestiae, beatae omnis quo ab.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="left-content content | col">people</div>
-              <div class="left-content content | col">notification</div>
-            </div>
-
-            <!-- left side placeholder -->
-            <div class="row row-cols-1 gap-4" id="left-side-placeholder">
-              <div class="left-content | col">
-                <div class="card text-center">
-                  <div>
-                    <div class="card-img-top placeholder-glow">
-                      <span class="placeholder col-12 bg-secondary" style="height: 8rem"></span>
+                <div id="intro" class="card d-none">
+                  <h4 class="fw-bold mx-3 py-3 mb-0 border-bottom">Intro</h4>
+                  <div class="d-flex flex-column">
+                    <div class="row align-items-center px-3 py-3">
+                      <i class="clr-neutral-300 | fa-solid fa-graduation-cap | col-1"></i>
+                      <p class="col-11 px-0 ps-1">
+                        Studied at
+                        <span id="user-university" class="fw-bold">University of Lahore</span>
+                      </p>
+                    </div>
+                    <div class="row align-items-center px-3 py-3">
+                      <i class="clr-neutral-300 | fa-solid fa-calendar-days | col-1"></i>
+                      <p class="col-11 px-0 ps-1">
+                        Born on
+                        <span id="user-dob" class="fw-bold">2000-05-02</span>
+                      </p>
+                    </div>
+                    <div class="row align-items-center px-3 py-3">
+                      <i class="clr-neutral-300 | fa-solid fa-house-chimney | col-1"></i>
+                      <p class="col-11 px-0 ps-1">
+                        Lives in
+                        <span id="user-location" class="fw-bold">Washington, DC</span>
+                      </p>
+                    </div>
+                    <div class="row align-items-center px-3 py-3">
+                      <i class="clr-neutral-300 | fa-solid fa-briefcase | col-1"></i>
+                      <p class="col-11 px-0 ps-1">
+                        Works at
+                        <span id="user-company" class="fw-bold">Programmers Force</span>
+                      </p>
                     </div>
                   </div>
-                  <div class="card-body p-3">
-                    <h6 class="placeholder-glow">
-                      <span class="placeholder col-8 bg-secondary"></span>
-                    </h6>
-                    <p class="card-text placeholder-glow">
-                      <span class="placeholder col-4 bg-secondary"></span>
-                      <span class="placeholder col-7 bg-secondary"></span>
-                      <span class="placeholder col-10 bg-secondary"></span>
-                      <span class="placeholder col-2 bg-secondary"></span>
-                      <span class="placeholder col-9 bg-secondary"></span>
-                    </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- intro placeholder -->
+            <div class="row row-cols-1 gap-4" id="intro-placeholder">
+              <div class="left-content | col">
+                <div class="card">
+                  <h4 class="fw-bold mx-3 py-3 mb-0 border-bottom placeholder-glow">
+                    <span class="placeholder col-3 bg-secondary"></span>
+                  </h4>
+                  <div class="d-flex flex-column">
+                    <div class="row align-items-center px-3 py-3">
+                      <p class="col-11 px-2 placeholder-glow">
+                        <span class="placeholder col-8 bg-secondary"></span>
+                      </p>
+                    </div>
+                    <div class="row align-items-center px-3 py-3">
+                      <p class="col-11 px-2 placeholder-glow">
+                        <span class="placeholder col-7 bg-secondary"></span>
+                      </p>
+                    </div>
+                    <div class="row align-items-center px-3 py-3">
+                      <p class="col-11 px-2 placeholder-glow">
+                        <span class="placeholder col-9 bg-secondary"></span>
+                      </p>
+                    </div>
+                    <div class="row align-items-center px-3 py-3">
+                      <p class="col-11 px-2 placeholder-glow">
+                        <span class="placeholder col-6 bg-secondary"></span>
+                      </p>
+                    </div>
+                    <div class="row align-items-center px-3 py-3">
+                      <p class="col-11 px-2 placeholder-glow">
+                        <span class="placeholder col-8 bg-secondary"></span>
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="left-content content | col"></div>
-              <div class="left-content content | col"></div>
             </div>
           </div>
 
-          <div class="middle | col-12 col-md-7">
+          <div class="middle | col-12 col-md-7 mt-3 mt-md-0">
             <div class="row row-cols-1 gap-4">
-              <div class="middle-content | col">
+              <div class="middle-content | col" id="say-something-container">
                 <div class="card p-3 d-none" id="say-something">
                   <div class="d-flex gap-1 align-items-center">
                     <div class="search-image-wrapper">

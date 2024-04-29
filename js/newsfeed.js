@@ -16,9 +16,9 @@ await authenticate.isAuthenticated();
     Header.setContainerElement(containerEl);
   }
 
+  Header.addSearchEventListener();
   Header.addSearchKeyUpEventListener();
   Header.addSearchPostEventListener();
-  Header.addSearchEventListener();
 
   newsfeedClass.setUser(); // setting logged in user info for class usage
   newsfeedClass.setUserData(); // setting user data in side profile
