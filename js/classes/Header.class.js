@@ -172,6 +172,10 @@ class Header {
             const postBodyEl = postEl.querySelector(".search-post-body");
             postBodyEl.innerHTML = post.body;
 
+            postEl.addEventListener("click", () => {
+              window.open(`/html/search.html?q=${searchEl.value}&postId=${post.id}`, "_blank");
+            });
+
             searchPostsEl.appendChild(postEl);
           }
 
@@ -207,6 +211,10 @@ class Header {
 
             const usernameEl = userEl.querySelector(".search-user-username");
             usernameEl.innerHTML = user.username;
+
+            userEl.addEventListener("click", () => {
+              window.open(`/html/profile.html?id=${user.id}`, "_blank");
+            });
 
             searchUsersEl.appendChild(userEl);
           }
