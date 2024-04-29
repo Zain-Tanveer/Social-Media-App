@@ -71,6 +71,10 @@ body {
   background-color: #d3d3d3 !important;
 }
 
+.post-user-info {
+  cursor: pointer;
+}
+
 .post-user-helpers .bx {
   cursor: pointer;
   font-size: 1.625rem;
@@ -107,6 +111,10 @@ body {
 
 .comment {
   border-radius: 1rem;
+}
+
+.comment-user {
+  cursor: pointer;
 }
 
 .comment-edit {

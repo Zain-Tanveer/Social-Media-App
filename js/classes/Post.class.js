@@ -163,6 +163,7 @@ class Post {
     this.setModalPostComments(postModalEl); // setting the comment of post
     this.setUserInfo(postModalEl); // setting the logged in user info on post
 
+    this.addUserProfileEventListener(postModalEl);
     this.addCommentInputEventListener(postModalEl);
     this.addCommentSendEventListener(postModalEl);
   }
@@ -297,6 +298,14 @@ class Post {
     const commentBodyEl = postEl.querySelector(".comment-body");
     commentUserEl.innerHTML = comment.user.username;
     commentBodyEl.innerHTML = comment.body;
+
+    commentUserEl.addEventListener("click", (e) => {
+      if (e.ctrlKey) {
+        window.open(`/html/profile.html?id=${comment.user.id}`, "_blank");
+      } else {
+        window.location.href = `/html/profile.html?id=${comment.user.id}`;
+      }
+    });
   }
 
   // function to set comments number on post
@@ -418,9 +427,21 @@ class Post {
 
   // function to add event listeners on post
   addPostEventListeners(postEl) {
+    this.addUserProfileEventListener(postEl);
     this.addMoreCommentsEventListener(postEl);
     this.addCommentInputEventListener(postEl);
     this.addCommentSendEventListener(postEl);
+  }
+
+  addUserProfileEventListener(postEl) {
+    const imageEl = postEl.querySelector(".post-user-info");
+    imageEl.addEventListener("click", (e) => {
+      if (e.ctrlKey) {
+        window.open(`/html/profile.html?id=${this.user.id}`, "_blank");
+      } else {
+        window.location.href = `/html/profile.html?id=${this.user.id}`;
+      }
+    });
   }
 
   // function to add event listener for more view more comments on post
