@@ -13,13 +13,13 @@ class Authenticate {
 
       const response = await userClass.getAuthenticatedUser(token);
 
-      console.log(response);
-
-      if (response.error) {
+      if (response.error && response.error === "401") {
+        window.location.href = `../index.html?error=${error.message}`;
+      } else if (response.error) {
         throw new Error(response.error);
       }
     } catch (error) {
-      window.location.href = `../index.html?error=Unauthorized! Please log in.`;
+      console.log(error);
     }
   }
 }
