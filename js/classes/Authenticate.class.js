@@ -8,18 +8,18 @@ class Authenticate {
       const token = userClass.getToken();
 
       if (!token) {
-        throw new Error("Unauthorized! Please login.");
+        throw new Error("401");
       }
 
       const response = await userClass.getAuthenticatedUser(token);
 
-      if (response.error && response.error === "401") {
-        window.location.href = `../index.html?error=${error.message}`;
-      } else if (response.error) {
+      if (response.error) {
         throw new Error(response.error);
       }
     } catch (error) {
-      console.log(error);
+      if (error.message === "401") {
+        window.location.href = `../index.html?error=Unauthorized! Please login.`;
+      }
     }
   }
 }
