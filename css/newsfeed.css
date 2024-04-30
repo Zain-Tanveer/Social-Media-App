@@ -56,6 +56,38 @@ body {
   color: var(--clr-primary-text);
 }
 
+.people-heading {
+  font-size: 1.125rem;
+}
+
+.people-heading::before {
+  bottom: -12px;
+  left: 24px;
+  width: 2.5rem;
+  height: 1px;
+  content: "";
+  position: absolute;
+  background-color: var(--clr-primary);
+}
+
+.people-may-know-user {
+  cursor: pointer;
+}
+
+.people-may-know-user:hover {
+  background-color: var(--clr-neutral-100);
+}
+
+.people-may-know-user img {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.may-know-image-placeholder {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
 .search-image-wrapper {
   padding-right: 0.5rem;
 }

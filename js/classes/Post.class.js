@@ -153,7 +153,7 @@ class Post {
     const postModalEl = document.getElementById("postModal");
 
     this.setPostModalTitle(postModalEl); // setting the title on post modal
-    this.setPostImages(postModalEl); // setting all images on post modal
+    this.setPostModalImages(postModalEl); // setting all images on post modal
     this.setPostUserInfo(postModalEl); // setting all user information related to the post modal
     this.setPostTitle(postModalEl); // setting the title of post modal
     this.setPostBody(postModalEl); // setting the body of post modal
@@ -187,6 +187,17 @@ class Post {
     const randomNumber = Math.floor(Math.random() * 20) + 1;
     const postImageEl = postEl.querySelector(".post-image img");
     postImageEl.setAttribute("src", `../assets/images/posts/post-${randomNumber}.jpg`);
+  }
+
+  setPostModalImages(postEl) {
+    const imageEl = postEl.querySelector(".user-image-post");
+    imageEl.setAttribute("src", this.user.image);
+    imageEl.setAttribute("alt", this.user.username);
+
+    const postImageEl = this.postEl.querySelector(".post-image img");
+    const modalPostImageEl = postEl.querySelector(".post-image img");
+
+    modalPostImageEl.setAttribute("src", postImageEl.getAttribute("src"));
   }
 
   // function to set all user info related to the post

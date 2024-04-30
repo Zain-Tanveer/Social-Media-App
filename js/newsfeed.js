@@ -28,7 +28,12 @@ await authenticate.isAuthenticated();
   newsfeedClass.setUserData(); // setting user data in side profile
   newsfeedClass.addSidePostProfileEventListener();
 
-  newsfeedClass.handleNewsfeedLoaders(); // will set the styling of loaders i.e., d-none to display data
+  newsfeedClass.hideSaySomethingLoader();
+  newsfeedClass.showSaySomethingElement();
+  newsfeedClass.hideUserSideProfileLoader();
+  newsfeedClass.showUserSideProfile();
+
+  newsfeedClass.setPeopleMayKnowUsers();
 
   const response = await newsfeedClass.setAllPosts();
   if (response.error) {

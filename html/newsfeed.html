@@ -353,8 +353,8 @@
 
         <div class="main-grid | row p-lg-3">
           <div class="left | col col-md-4 col-lg-3">
-            <div class="row row-cols-1 gap-4 d-none" id="left-side">
-              <div class="left-content | col">
+            <div class="row row-cols-1 gap-4">
+              <div class="user-side-profile | col d-none" id="user-side-profile">
                 <div class="card text-center">
                   <div class="position-relative">
                     <img
@@ -380,13 +380,9 @@
                   </div>
                 </div>
               </div>
-              <div class="left-content content | col">people</div>
-              <div class="left-content content | col">notification</div>
-            </div>
 
-            <!-- left side placeholder -->
-            <div class="row row-cols-1 gap-4" id="left-side-placeholder">
-              <div class="left-content | col">
+              <!-- user side profile placeholder -->
+              <div id="side-profile-placeholder" class="user-side-profile-placeholder | col">
                 <div class="card text-center">
                   <div>
                     <div class="card-img-top placeholder-glow">
@@ -407,8 +403,118 @@
                   </div>
                 </div>
               </div>
-              <div class="left-content content | col"></div>
-              <div class="left-content content | col"></div>
+
+              <div id="people-you-may-know" class="people-you-may-know | col d-none">
+                <div class="card py-4">
+                  <h6 class="people-heading | px-4 fw-bold position-relative mb-3">
+                    People You May Know
+                  </h6>
+                  <div
+                    class="people-may-know-user | mx-2 px-2 d-flex align-items-center py-2 gap-2 rounded"
+                  >
+                    <img
+                      class="may-know-image | rounded-circle"
+                      src="../assets/images/Picture.jpg"
+                      alt=""
+                    />
+                    <div class="d-flex flex-column">
+                      <p class="may-know-fullname | fw-bold">Zain Tanveer</p>
+                      <p class="may-know-username">Zain</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- people you may know placeholder -->
+              <div id="people-you-may-know-placeholder" class="col">
+                <div class="card p-4">
+                  <h6
+                    class="people-heading | fw-bold position-relative mb-3 placeholder-glow placeholder-glow"
+                  >
+                    <span class="placeholder col-10 bg-secondary"></span>
+                  </h6>
+                  <div class="d-flex align-items-center py-2 gap-2">
+                    <div class="may-know-image-placeholder | placeholder-glow">
+                      <span class="placeholder bg-secondary w-100 h-100 rounded-circle"></span>
+                    </div>
+                    <div class="d-flex flex-column w-75">
+                      <p class="placeholder-glow">
+                        <span class="placeholder bg-secondary col-7"></span>
+                      </p>
+                      <p class="placeholder-glow">
+                        <span class="placeholder bg-secondary col-5"></span>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center py-2 gap-2">
+                    <div class="may-know-image-placeholder | placeholder-glow">
+                      <span class="placeholder bg-secondary w-100 h-100 rounded-circle"></span>
+                    </div>
+                    <div class="d-flex flex-column w-75">
+                      <p class="placeholder-glow">
+                        <span class="placeholder bg-secondary col-7"></span>
+                      </p>
+                      <p class="placeholder-glow">
+                        <span class="placeholder bg-secondary col-5"></span>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center py-2 gap-2">
+                    <div class="may-know-image-placeholder | placeholder-glow">
+                      <span class="placeholder bg-secondary w-100 h-100 rounded-circle"></span>
+                    </div>
+                    <div class="d-flex flex-column w-75">
+                      <p class="placeholder-glow">
+                        <span class="placeholder bg-secondary col-7"></span>
+                      </p>
+                      <p class="placeholder-glow">
+                        <span class="placeholder bg-secondary col-5"></span>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center py-2 gap-2">
+                    <div class="may-know-image-placeholder | placeholder-glow">
+                      <span class="placeholder bg-secondary w-100 h-100 rounded-circle"></span>
+                    </div>
+                    <div class="d-flex flex-column w-75">
+                      <p class="placeholder-glow">
+                        <span class="placeholder bg-secondary col-7"></span>
+                      </p>
+                      <p class="placeholder-glow">
+                        <span class="placeholder bg-secondary col-5"></span>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center py-2 gap-2">
+                    <div class="may-know-image-placeholder | placeholder-glow">
+                      <span class="placeholder bg-secondary w-100 h-100 rounded-circle"></span>
+                    </div>
+                    <div class="d-flex flex-column w-75">
+                      <p class="placeholder-glow">
+                        <span class="placeholder bg-secondary col-7"></span>
+                      </p>
+                      <p class="placeholder-glow">
+                        <span class="placeholder bg-secondary col-5"></span>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center py-2 gap-2">
+                    <div class="may-know-image-placeholder | placeholder-glow">
+                      <span class="placeholder bg-secondary w-100 h-100 rounded-circle"></span>
+                    </div>
+                    <div class="d-flex flex-column w-75">
+                      <p class="placeholder-glow">
+                        <span class="placeholder bg-secondary col-7"></span>
+                      </p>
+                      <p class="placeholder-glow">
+                        <span class="placeholder bg-secondary col-5"></span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="left-content content | col">notification</div>
             </div>
           </div>
 
