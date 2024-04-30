@@ -70,15 +70,26 @@ body {
   background-color: var(--clr-primary);
 }
 
-.people-may-know-user {
+.people-heading.placeholder-glow::before {
+  left: 0;
+}
+
+.advertisement .people-heading::before {
+  left: 0;
+}
+
+.people-may-know-user,
+.notification {
   cursor: pointer;
 }
 
-.people-may-know-user:hover {
+.people-may-know-user:hover,
+.notification:hover {
   background-color: var(--clr-neutral-100);
 }
 
-.people-may-know-user img {
+.people-may-know-user img,
+.notification img {
   width: 2.5rem;
   height: 2.5rem;
 }

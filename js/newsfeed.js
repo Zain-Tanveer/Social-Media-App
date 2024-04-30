@@ -44,6 +44,8 @@ await authenticate.isAuthenticated();
     return;
   }
 
+  newsfeedClass.setNotifications();
+
   newsfeedClass.addScrollEventListener(); // setting scroll event listener for getting more posts
 
   Modal.addDeleteModalEventListener();

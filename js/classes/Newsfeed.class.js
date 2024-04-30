@@ -5,6 +5,18 @@ import commentClass from "./Comment.class.js";
 class Newsfeed {
   constructor() {
     this.user;
+    this.posts;
+    this.users = [];
+  }
+
+  // function to set posts value
+  setPosts(posts) {
+    this.posts = posts;
+  }
+
+  // function to get posts value
+  getPosts() {
+    return this.posts;
   }
 
   setUser() {
@@ -34,6 +46,49 @@ class Newsfeed {
     element.innerHTML = text;
   }
 
+  setNotifications() {
+    const notificationsEl = document.querySelector("#notifications .card");
+    const notifyEl = notificationsEl.querySelector(".notification");
+
+    notifyEl.parentElement.removeChild(notifyEl);
+    console.log(this.users);
+
+    for (const post of this.posts.reverse()) {
+      const user = this.users.find((usr) => usr.id === post.userId);
+
+      const newNotifyEl = notifyEl.cloneNode(true);
+      this.#setNotifyElement(newNotifyEl, post, user);
+
+      notificationsEl.appendChild(newNotifyEl);
+    }
+
+    this.hideNotificationsLoader();
+    this.showNotifications();
+  }
+
+  #setNotifyElement(notifyEl, post, user) {
+    this.#setNotifyTitle(notifyEl, post);
+    this.#setNotifyImage(notifyEl, user);
+    this.#setNotifyUsername(notifyEl, user);
+  }
+
+  #setNotifyImage(notifyEl, user) {
+    console.log(notifyEl);
+    const imageEl = notifyEl.querySelector(".notify-image");
+    imageEl.setAttribute("src", user.image);
+    imageEl.setAttribute("alt", user.username);
+  }
+
+  #setNotifyTitle(notifyEl, post) {
+    const titleEl = notifyEl.querySelector(".notifications-title");
+    titleEl.innerHTML = post.title;
+  }
+
+  #setNotifyUsername(notifyEl, user) {
+    const usernameEl = notifyEl.querySelector(".notifications-username");
+    usernameEl.innerHTML = user.username;
+  }
+
   async setAllPosts() {
     try {
       const response = await Post.getAllPosts();
@@ -43,11 +98,14 @@ class Newsfeed {
       }
 
       const { posts } = response;
+      this.posts = posts;
 
       for (const post of posts) {
         // add errors
         const user = await userClass.getSingleUser(post.userId);
         const response = await commentClass.getPostComments(post.id);
+
+        this.users.push(user);
 
         const postObj = new Post(post, user, response.comments);
         postObj.createNewPost();
@@ -120,6 +178,16 @@ class Newsfeed {
   showPeopleYouMayKnow() {
     const peopleMayKnowEl = document.getElementById("people-you-may-know");
     peopleMayKnowEl.classList.remove("d-none");
+  }
+
+  showNotifications() {
+    const notificationsEl = document.getElementById("notifications");
+    notificationsEl.classList.remove("d-none");
+  }
+
+  hideNotificationsLoader() {
+    const notificationsEl = document.getElementById("notifications-placeholder");
+    notificationsEl.classList.add("d-none");
   }
 
   createPeopleUserElement(user, peopleUserEl) {
