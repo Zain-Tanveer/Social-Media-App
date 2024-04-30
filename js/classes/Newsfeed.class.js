@@ -218,14 +218,14 @@ class Newsfeed {
 
   #addPeopleUserEventListener(userEl, user) {
     userEl.addEventListener("click", () => {
-      window.open(`/html/profile.html?id=${user.id}`, "_blank");
+      window.open(`../html/profile.html?id=${user.id}`, "_blank");
     });
   }
 
   addSidePostProfileEventListener() {
     const imageEl = document.getElementById("side-profile-user-image");
     imageEl.addEventListener("click", () => {
-      window.location.href = `/html/profile.html?id=${this.user.id}`;
+      window.location.href = `../html/profile.html?id=${this.user.id}`;
     });
   }
 

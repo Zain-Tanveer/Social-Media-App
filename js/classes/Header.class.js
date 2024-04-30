@@ -89,7 +89,7 @@ class Header {
 
     const settingsUserEl = document.getElementById("profile-settings-user");
     settingsUserEl.addEventListener("click", () => {
-      window.location.href = `/html/profile.html?id=${user.id}`;
+      window.location.href = `../html/profile.html?id=${user.id}`;
     });
   }
 
@@ -147,7 +147,7 @@ class Header {
     const searchEl = Header.#containerElement.querySelector("#search-post-text");
     searchEl.addEventListener("click", () => {
       const searchTextEl = Header.#containerElement.querySelector("#search-text");
-      window.open(`/html/search.html?q=${searchTextEl.innerHTML}`, "_blank");
+      window.open(`../html/search.html?q=${searchTextEl.innerHTML}`, "_blank");
     });
   }
 
@@ -173,7 +173,7 @@ class Header {
             postBodyEl.innerHTML = post.body;
 
             postEl.addEventListener("click", () => {
-              window.open(`/html/search.html?q=${searchEl.value}&postId=${post.id}`, "_blank");
+              window.open(`../html/search.html?q=${searchEl.value}&postId=${post.id}`, "_blank");
             });
 
             searchPostsEl.appendChild(postEl);
@@ -213,7 +213,7 @@ class Header {
             usernameEl.innerHTML = user.username;
 
             userEl.addEventListener("click", () => {
-              window.open(`/html/profile.html?id=${user.id}`, "_blank");
+              window.open(`../html/profile.html?id=${user.id}`, "_blank");
             });
 
             searchUsersEl.appendChild(userEl);

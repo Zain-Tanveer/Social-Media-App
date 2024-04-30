@@ -136,7 +136,7 @@ class Search {
     const searchEl = containerEl.querySelector("#search-post-text");
     searchEl.addEventListener("click", () => {
       const searchTextEl = containerEl.querySelector("#search-text");
-      window.location.href = `/html/search.html?q=${searchTextEl.innerHTML}`;
+      window.location.href = `../html/search.html?q=${searchTextEl.innerHTML}`;
     });
   }
 

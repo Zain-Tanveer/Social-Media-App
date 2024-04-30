@@ -312,9 +312,9 @@ class Post {
 
     commentUserEl.addEventListener("click", (e) => {
       if (e.ctrlKey) {
-        window.open(`/html/profile.html?id=${comment.user.id}`, "_blank");
+        window.open(`../html/profile.html?id=${comment.user.id}`, "_blank");
       } else {
-        window.location.href = `/html/profile.html?id=${comment.user.id}`;
+        window.location.href = `../html/profile.html?id=${comment.user.id}`;
       }
     });
   }
@@ -448,9 +448,9 @@ class Post {
     const imageEl = postEl.querySelector(".post-user-info");
     imageEl.addEventListener("click", (e) => {
       if (e.ctrlKey) {
-        window.open(`/html/profile.html?id=${this.user.id}`, "_blank");
+        window.open(`../html/profile.html?id=${this.user.id}`, "_blank");
       } else {
-        window.location.href = `/html/profile.html?id=${this.user.id}`;
+        window.location.href = `../html/profile.html?id=${this.user.id}`;
       }
     });
   }

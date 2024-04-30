@@ -108,7 +108,7 @@ class User {
 
   logoutUser() {
     localStorage.clear();
-    window.location.href = "/index.html";
+    window.location.href = "../../index.html";
   }
 }
 
