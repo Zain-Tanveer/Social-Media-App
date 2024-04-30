@@ -1,3 +1,8 @@
+.response-message {
+  top: 6rem !important;
+  right: 1rem !important;
+}
+
 .primary-header .nav-link {
   display: inline-block;
   font-weight: var(--fw-bold);

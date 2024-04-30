@@ -32,7 +32,19 @@ formEl.addEventListener(
     const username = formEl.querySelector("#username").value;
     const password = formEl.querySelector("#password").value;
 
+    const submitButtonEl = document.querySelector(".login-submit");
+    const submitText = submitButtonEl.querySelector(" .submit-text");
+    const submitLoader = submitButtonEl.querySelector(".login-button-loader");
+
+    submitButtonEl.disabled = true;
+    submitText.classList.add("d-none");
+    submitLoader.classList.remove("d-none");
+
     const response = await userClass.LoginUser(username, password);
+
+    submitButtonEl.disabled = false;
+    submitText.classList.remove("d-none");
+    submitLoader.classList.add("d-none");
 
     if (response.error) {
       utility.displayAlertMessage(response.error, "danger");

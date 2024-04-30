@@ -73,7 +73,6 @@ class Newsfeed {
   }
 
   #setNotifyImage(notifyEl, user) {
-    console.log(notifyEl);
     const imageEl = notifyEl.querySelector(".notify-image");
     imageEl.setAttribute("src", user.image);
     imageEl.setAttribute("alt", user.username);

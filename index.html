@@ -61,7 +61,7 @@
     </header>
 
     <main>
-      <div class="container position-relative">
+      <div class="container">
         <div
           id="response-message"
           class="response-message | alert alert-dismissible d-none d-flex align-items-center position-absolute top-0 end-0"
@@ -89,7 +89,9 @@
           <div class="card-body">
             <form class="p-3 needs-validation" novalidate id="login-form">
               <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
+                <label for="username" class="form-label"
+                  >Username<span class="fw-bold ms-2">kminchelle</span></label
+                >
                 <input
                   type="text"
                   class="form-control"
@@ -102,7 +104,9 @@
                 <div class="invalid-feedback">Please provide a username.</div>
               </div>
               <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
+                <label for="password" class="form-label"
+                  >Password<span class="fw-bold ms-2">0lelplR</span></label
+                >
                 <input
                   type="password"
                   class="form-control"
@@ -115,9 +119,17 @@
               </div>
               <div class="mb-3 form-check">
                 <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                <label class="form-check-label" for="exampleCheck1">Remember me 0lelplR</label>
+                <label class="form-check-label" for="exampleCheck1">Remember me</label>
               </div>
-              <button type="submit" class="login-submit | btn btn-primary">Submit</button>
+              <button type="submit" class="login-submit | btn btn-primary">
+                <span class="submit-text">Submit</span>
+                <div
+                  class="login-button-loader | d-none spinner-border spinner-border-sm"
+                  role="status"
+                >
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              </button>
             </form>
           </div>
         </div>
