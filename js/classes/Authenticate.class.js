@@ -3,6 +3,8 @@ import userClass from "./User.class.js";
 class Authenticate {
   constructor() {}
 
+  // function to authenticate a user.
+  // if authentication failed then redirect user to login page
   async isAuthenticated() {
     try {
       const token = userClass.getToken();

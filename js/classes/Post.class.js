@@ -82,6 +82,7 @@ class Post {
         throw new Error("something went wrong");
       }
 
+      // setting last post id for handling more posts
       Post.setLastPostId(data.posts[data.posts.length - 1].id);
 
       return data;
@@ -90,6 +91,7 @@ class Post {
     }
   }
 
+  // function to get posts based on search input
   static async getSearchPosts(search, limit = 4, skip = 0) {
     try {
       const response = await fetch(
@@ -107,6 +109,7 @@ class Post {
     }
   }
 
+  // function to get specific user posts
   static async getUserPosts(userId, limit = 10, skip = 0) {
     try {
       const response = await fetch(
@@ -126,14 +129,14 @@ class Post {
 
   // function to create a new post
   createNewPost() {
-    const newPostEl = Post.getInitialPostEl().cloneNode(true);
+    const newPostEl = Post.getInitialPostEl().cloneNode(true); // clones hardcoded html of post
     newPostEl.classList.remove("d-none");
-    this.setPostElement(newPostEl);
+    this.setPostElement(newPostEl); // setting post element
 
-    this.setPostData(this.postEl);
-    this.addPostEventListeners(this.postEl);
+    this.setPostData(this.postEl); // setting post data
+    this.addPostEventListeners(this.postEl); // adding event listeners on post
 
-    document.getElementById("posts").appendChild(this.getPostElement());
+    document.getElementById("posts").appendChild(this.getPostElement()); // appending the post to posts element
   }
 
   // function to set the data of a post
@@ -163,11 +166,12 @@ class Post {
     this.setModalPostComments(postModalEl); // setting the comment of post
     this.setUserInfo(postModalEl); // setting the logged in user info on post
 
-    this.addUserProfileEventListener(postModalEl);
-    this.addCommentInputEventListener(postModalEl);
-    this.addCommentSendEventListener(postModalEl);
+    this.addUserProfileEventListener(postModalEl); // adding click event listener on user in header of post modal
+    this.addCommentInputEventListener(postModalEl); // adding comment input field event listener on comments
+    this.addCommentSendEventListener(postModalEl); // adding add comment event listener on comments
   }
 
+  // function to set title of post modal
   setPostModalTitle(modalEl) {
     const modalTitleEl = modalEl.querySelector("#postModalLabel");
     modalTitleEl.innerHTML = `${this.user.username}'s post`;
@@ -184,11 +188,14 @@ class Post {
     imageEl.setAttribute("src", this.user.image);
     imageEl.setAttribute("alt", this.user.username);
 
+    // the images saved in assets/images all have number from 1-20 at the end.
+    // this will generate a random number between 1-20 and set the post image.
     const randomNumber = Math.floor(Math.random() * 20) + 1;
     const postImageEl = postEl.querySelector(".post-image img");
     postImageEl.setAttribute("src", `../assets/images/posts/post-${randomNumber}.jpg`);
   }
 
+  // function to set post image on post modal
   setPostModalImages(postEl) {
     const imageEl = postEl.querySelector(".user-image-post");
     imageEl.setAttribute("src", this.user.image);
@@ -258,6 +265,7 @@ class Post {
     if (this.post.reactions <= 0) {
       const likesCommentsNumbersEl = postEl.querySelector(".likes-comments-numbers");
       const likesIconEl = likesCommentsNumbersEl.querySelector(".likes-icon-span");
+      // if post has no reactions and likes icon exists then remove the icon
       if (likesIconEl) {
         likesCommentsNumbersEl.removeChild(likesIconEl);
       }
@@ -274,23 +282,27 @@ class Post {
     if (this.comments.length > 0) {
       const loggedUser = userClass.getUser();
 
-      this.setPostCommentInfo(postEl, this.comments[0]);
-      this.setPostCommentNumber(postEl);
+      this.setPostCommentInfo(postEl, this.comments[0]); // setting comment info on post
+      this.setPostCommentNumber(postEl); // setting comment count on post
 
       const commentsNumberEl = postEl.querySelector(".comments-number");
 
+      // if the comment user id and current user id match then allow
+      // user to edit and delete the comment
       if (this.comments[0].user.id === loggedUser.id) {
         commentEl.setAttribute("data-comment-id", `${this.post.id}-${this.comments[0].id}`);
 
         const commentTextEl = commentEl.querySelector(".comment");
-        const commentEditInputEl = this.createCommentEditInputElement();
+        const commentEditInputEl = this.createCommentEditInputElement(); // creating comment edit input field element
         commentTextEl.appendChild(commentEditInputEl);
 
+        // creating comment options dropdown
         this.setCommentOptionsDropdown(postEl, commentEl, "user", this.comments[0].id);
       } else {
         this.setCommentOptionsDropdown(postEl, commentEl, "other");
       }
 
+      // if there are more than 1 comment then show view more comments
       if (this.comments.length > 1) {
         const moreCommentsEl = postEl.querySelector(".more-comments");
         commentsNumberEl.innerHTML += " comments";
@@ -310,7 +322,9 @@ class Post {
     commentUserEl.innerHTML = comment.user.username;
     commentBodyEl.innerHTML = comment.body;
 
+    // on click of username in comment open that user's user profile page
     commentUserEl.addEventListener("click", (e) => {
+      // if ctrl+click then open new tab
       if (e.ctrlKey) {
         window.open(`../html/profile.html?id=${comment.user.id}`, "_blank");
       } else {
@@ -338,6 +352,8 @@ class Post {
       const newCommentEl = this.cloneElement(commentEl);
       this.setPostCommentInfo(newCommentEl, comment);
 
+      // if comment user id and current logged user id match then
+      // allow user to edit and delete comment
       if (comment.user && comment.user.id === loggedUser.id) {
         const commentTextEl = newCommentEl.querySelector(".comment");
         const commentEditInputEl = this.createCommentEditInputElement();
@@ -369,6 +385,7 @@ class Post {
     const commentDropdownEl = commentEl.querySelector(".comment-options-dropdown");
     commentDropdownEl.innerHTML = "";
 
+    // creating dropdown for comment options
     this.createDropdownElements(postEl, commentEl, commentDropdownEl, type, comment_id);
   }
 
@@ -376,13 +393,14 @@ class Post {
   createDropdownElements(postEl, commentEl, dropdownEl, type, comment_id) {
     if (type === "user") {
       const editEl = this.createDropdownLiEl("edit comment");
-      this.addDropdownEditEventListener(postEl, commentEl, editEl, comment_id);
+      this.addDropdownEditEventListener(postEl, commentEl, editEl, comment_id); // adding event listener on edit click in comment options
       dropdownEl.appendChild(editEl);
 
       const deleteEl = this.createDropdownLiEl("delete comment");
+      // this will make it so the delete button toggles delete dropdown
       deleteEl.setAttribute("data-bs-toggle", "modal");
       deleteEl.setAttribute("data-bs-target", "#deleteCommentModal");
-      this.addDropdownDeleteEventListener(postEl, deleteEl, `${this.post.id}-${comment_id}`);
+      this.addDropdownDeleteEventListener(postEl, deleteEl, `${this.post.id}-${comment_id}`); // adding event listener on delete click in comment options
       dropdownEl.appendChild(deleteEl);
     } else {
       dropdownEl.appendChild(this.createDropdownLiEl("hide comment"));
@@ -424,6 +442,7 @@ class Post {
     return tagsDiv;
   }
 
+  // function to clone comment edit input element
   createCommentEditInputElement() {
     const editEl = this.cloneElement(Post.#commentEditInputEl);
     editEl.removeAttribute("id");
@@ -438,12 +457,13 @@ class Post {
 
   // function to add event listeners on post
   addPostEventListeners(postEl) {
-    this.addUserProfileEventListener(postEl);
-    this.addMoreCommentsEventListener(postEl);
-    this.addCommentInputEventListener(postEl);
-    this.addCommentSendEventListener(postEl);
+    this.addUserProfileEventListener(postEl); // adding click event listener on user info click in post header
+    this.addMoreCommentsEventListener(postEl); // adding event listener on add more comments in post
+    this.addCommentInputEventListener(postEl); // adding add new comment input event listener
+    this.addCommentSendEventListener(postEl); // adding add new comment send event listener
   }
 
+  // function to add event listener on click of user info in post header
   addUserProfileEventListener(postEl) {
     const imageEl = postEl.querySelector(".post-user-info");
     imageEl.addEventListener("click", (e) => {
@@ -463,6 +483,7 @@ class Post {
     });
   }
 
+  // function to add event listener for click of send icon on add comment
   addCommentSendEventListener(postEl) {
     const commentSendEl = postEl.querySelector(".comment-send-icon");
     commentSendEl.addEventListener("click", async () => {
@@ -470,7 +491,7 @@ class Post {
 
       if (inputEl.value !== "") {
         this.showLoader(postEl, "comment-send-icon", "comment-send-loader");
-        await this.handleAddComment(postEl, inputEl);
+        await this.handleAddComment(postEl, inputEl); // sending request to api and adding new comment
       }
     });
   }
@@ -483,7 +504,7 @@ class Post {
       if (e.key === "Enter") {
         if (inputEl.value !== "") {
           this.showLoader(postEl, "comment-send-icon", "comment-send-loader");
-          await this.handleAddComment(postEl, inputEl);
+          await this.handleAddComment(postEl, inputEl); // sending request to api and adding new comment
         }
       }
     });
@@ -499,6 +520,7 @@ class Post {
     });
   }
 
+  // function to add event listener on send button in edit comment
   addEditCommentSendEventListener(postEl, commentEl, comment_id) {
     const commentSendEl = commentEl.querySelector(".comment-send-icon-edit");
     commentSendEl.addEventListener("click", async () => {
@@ -511,6 +533,7 @@ class Post {
     });
   }
 
+  // function to add event listener on enter key press in edit comment
   editCommentInputEventListener(postEl, commentEl, comment_id) {
     const inputEl = commentEl.querySelector(".comment-input-edit");
 
@@ -525,6 +548,7 @@ class Post {
     });
   }
 
+  // function to add event listener on click of cancel in edit comment
   cancelCommentEditEventListener(commentEl) {
     const cancelEl = commentEl.querySelector(".comment-cancel-helper div");
     cancelEl.addEventListener("click", () => {
@@ -538,6 +562,7 @@ class Post {
       const modalCommentDeleteBtn = document.getElementById("modal-comment-delete-button");
       modalCommentDeleteBtn.setAttribute("data-id", data_id);
 
+      // this event listener is fired from Modal.class.js when delete is clicked
       document.addEventListener(`deleteComment${data_id}`, async () => {
         const modalEl = document.getElementById("deleteCommentModal");
         try {
@@ -550,9 +575,11 @@ class Post {
           );
           commentEl.parentNode.removeChild(commentEl);
 
-          this.setPostCommentNumber(postEl);
-          this.setPostCommentNumberText(postEl);
+          this.setPostCommentNumber(postEl); // updates post comments number
+          this.setPostCommentNumberText(postEl); // updates post comments text
 
+          // if delete event was fired from post modal then
+          // also update post element comment info
           if (postEl.getAttribute("id") === "postModal") {
             this.setPostCommentNumber(this.postEl);
             this.setPostCommentNumberText(this.postEl);
@@ -586,6 +613,7 @@ class Post {
     return comments.filter((comment) => comment.id !== commentId);
   }
 
+  // function to handle adding a new comment
   async handleAddComment(postEl, inputEl) {
     try {
       const loggedUser = userClass.getUser();
@@ -619,6 +647,7 @@ class Post {
     }
   }
 
+  // function to handle adding a new comment
   async handleEditComment(postEl, commentEl, inputEl, comment_id) {
     try {
       // we would pass comment id here but since the new comment is not
@@ -665,6 +694,7 @@ class Post {
     }
   }
 
+  // function to set html of new comment added
   setAddNewCommentElement(postEl, newComment) {
     const commentsWrapperEl = postEl.querySelector(".comments-wrapper");
     const commentEl = commentsWrapperEl.querySelector(".comment-container");
@@ -695,6 +725,7 @@ class Post {
     commentsWrapperEl.appendChild(newCommentEl);
   }
 
+  // function to set edit comment element
   setEditCommentElement(commentEl) {
     const loggedUser = userClass.getUser();
 
@@ -719,6 +750,7 @@ class Post {
     cancelHelperEl.classList.remove("d-none");
   }
 
+  // function to show edit comment element
   showHideCommentElements(commentEl) {
     const commentBodyEl = commentEl.querySelector(".comment-body");
     commentBodyEl.classList.remove("d-none");
@@ -736,12 +768,15 @@ class Post {
     cancelHelperEl.classList.add("d-none");
   }
 
+  // function to show loader
   showLoader(postEl, elementClass, loaderClass) {
     const element = postEl.querySelector(`.${elementClass}`);
     const loaderEl = postEl.querySelector(`.${loaderClass}`);
     element.classList.add("d-none");
     loaderEl.classList.remove("d-none");
   }
+
+  // function to hide loader
   hideLoader(postEl, elementClass, loaderClass) {
     const element = postEl.querySelector(`.${elementClass}`);
     const loaderEl = postEl.querySelector(`.${loaderClass}`);

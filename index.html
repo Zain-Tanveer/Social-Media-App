@@ -60,27 +60,22 @@
       </div>
     </header>
 
+    <div
+      id="response-message"
+      class="response-message | alert alert-dismissible d-none d-flex align-items-center position-absolute top-0 end-0"
+      role="alert"
+    >
+      <i id="response-icon" class="fa-solid me-2"></i>
+      <div class="me-2" id="response-text">Dummy Text</div>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+      <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+    </div>
+
     <main>
       <div class="container">
-        <div
-          id="response-message"
-          class="response-message | alert alert-dismissible d-none d-flex align-items-center position-absolute top-0 end-0"
-          role="alert"
-        >
-          <i id="response-icon" class="fa-solid me-2"></i>
-          <div class="me-2" id="response-text">Dummy Text</div>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="alert"
-            aria-label="Close"
-          ></button>
-
-          <div class="progress-container">
-            <div class="progress-bar" id="progressBar"></div>
-          </div>
-        </div>
-
         <div class="welcome | text-center mt-5">
           <h1 class="heading">Welcome back!</h1>
           <p class="text">Login to your account to continue</p>

@@ -3,6 +3,7 @@ class Utility {
     this.intervalId;
   }
 
+  // function to display alert message
   displayAlertMessage(message, type, duration = 3500) {
     const messageEl = document.getElementById("response-message");
     const textEl = messageEl.querySelector("#response-text");

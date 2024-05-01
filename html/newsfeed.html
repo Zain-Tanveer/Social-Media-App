@@ -38,6 +38,7 @@
                 >SociableSpace</a
               >
               <div>
+                <!-- mobile screen search button -->
                 <button
                   class="search-button-mobile search-button nav-icon-button | btn btn-light"
                   role="button"
@@ -46,6 +47,8 @@
                 >
                   <i class="bx bx-search-alt-2 nav-icons"></i>
                 </button>
+
+                <!-- mobile screen search dropdown -->
                 <div class="search-dropdown | dropdown-menu">
                   <form class="d-flex px-3 align-items-center gap-1">
                     <div class="mobile-nav-arrow-container">
@@ -59,7 +62,6 @@
                       disabled
                     />
                   </form>
-
                   <div
                     id="search-post-text"
                     class="search-post-text | d-none d-flex gap-2 p-2 align-items-center"
@@ -71,8 +73,9 @@
                     </button>
                     <p class="fw-bold" id="search-text"></p>
                   </div>
-
+                  <!-- search dropdown posts -->
                   <div id="search-posts">
+                    <!-- search dropdown post -->
                     <div class="search-post | d-none d-flex gap-2 p-2 align-items-center">
                       <button
                         class="dropdown-search-icon search-button nav-icon-button | btn btn-light"
@@ -94,8 +97,9 @@
                       </div>
                     </div>
                   </div>
-
+                  <!-- search dropdown users -->
                   <div id="search-users">
+                    <!-- search dropdown user -->
                     <div class="search-user | d-none d-flex gap-2 p-2 align-items-center">
                       <img
                         class="search-user-image | rounded-circle"
@@ -109,11 +113,11 @@
                       </div>
                     </div>
                   </div>
-
+                  <!-- search dropdown no results found -->
                   <div id="no-results" class="no-results | py-2 text-secondary text-center">
                     No results found
                   </div>
-
+                  <!-- search dropdown spinner -->
                   <div class="d-flex justify-content-center py-1">
                     <div
                       id="search-spinner"
@@ -127,9 +131,11 @@
               </div>
             </div>
 
+            <!-- header middle nav icons -->
             <ul
               class="page-nav | navbar-nav mx-auto mb-lg-0 d-flex flex-row align-items-center gap-1"
             >
+              <!-- home icon -->
               <li
                 class="home-nav-item | nav-item py-2 active"
                 data-bs-toggle="tooltip"
@@ -142,6 +148,7 @@
                   ><i class="fa fa-home"></i>
                 </a>
               </li>
+              <!-- users icon -->
               <li
                 class="users-nav-item | nav-item py-2"
                 data-bs-toggle="tooltip"
@@ -154,6 +161,7 @@
                   <i class="fa fa-users" style="font-size: 1.625rem"></i>
                 </a>
               </li>
+              <!-- friends icon -->
               <li
                 class="friends-nav-item | nav-item py-2"
                 data-bs-toggle="tooltip"
@@ -168,8 +176,10 @@
               </li>
             </ul>
 
+            <!-- wep page search -->
             <div class="d-flex gap-3 align-items-center">
               <div class="user-search-container | d-flex position-relative" role="search">
+                <!-- search input field -->
                 <input
                   class="form-control me-2"
                   type="search"
@@ -180,6 +190,7 @@
                   disabled
                 />
 
+                <!-- search dropdown -->
                 <div
                   id="search-lg-dropdown"
                   class="search-lg-dropdown | d-none d-flex p-1 flex-column position-absolute bg-white"
@@ -195,8 +206,9 @@
                     </button>
                     <p class="fw-bold" id="search-text"></p>
                   </div>
-
+                  <!-- search dropdown posts -->
                   <div id="search-posts">
+                    <!-- search dropdown post -->
                     <div class="search-post | d-none d-flex gap-2 p-2 align-items-center">
                       <button
                         class="dropdown-search-icon search-button nav-icon-button | btn btn-light"
@@ -218,8 +230,9 @@
                       </div>
                     </div>
                   </div>
-
+                  <!-- search dropdown users -->
                   <div id="search-users">
+                    <!-- search dropdown user -->
                     <div class="search-user | d-none d-flex gap-2 p-2 align-items-center">
                       <img
                         class="search-user-image | rounded-circle"
@@ -234,10 +247,11 @@
                     </div>
                   </div>
 
+                  <!-- search dropdown no results found -->
                   <div id="no-results" class="no-results | py-2 text-secondary text-center">
                     No results found
                   </div>
-
+                  <!-- search dropdown spinner -->
                   <div class="d-flex justify-content-center py-1">
                     <div
                       id="search-spinner"
@@ -251,6 +265,7 @@
               </div>
 
               <ul class="navbar-nav mx-auto d-flex flex-row align-items-center gap-1">
+                <!-- create post icon -->
                 <li
                   class="nav-item py-2"
                   data-bs-toggle="modal"
@@ -264,8 +279,10 @@
                     <i class="fa fa-plus nav-icons"></i>
                   </button>
                 </li>
+                <!-- profile settings -->
                 <li class="nav-item py-2">
                   <div class="profile-settings-dropdown | dropstart">
+                    <!-- profile settings icon -->
                     <button
                       id="profile-settings-button"
                       class="nav-icon-button | btn btn-light"
@@ -278,7 +295,9 @@
                       <i class="fa-solid fa-user-gear nav-icons"></i>
                     </button>
 
+                    <!-- profile settings dropdown -->
                     <div class="dropdown-menu position-absolute py-1">
+                      <!-- user -->
                       <div
                         id="profile-settings-user"
                         class="profile-settings-item | d-flex align-items-center gap-2 px-2 py-1 mx-1 rounded"
@@ -288,19 +307,21 @@
                       </div>
 
                       <div class="mx-3 my-1 bg-secondary-subtle" style="height: 1px"></div>
-
+                      <!-- settings and privacy -->
                       <div
                         class="profile-settings-item | d-flex align-items-center gap-2 px-2 py-1 mx-1 rounded"
                       >
                         <i class="fa-solid fa-gear | rounded-circle bg-secondary-subtle"></i>
                         <p class="fw-bold">Settings & Privacy</p>
                       </div>
+                      <!-- help and support -->
                       <div
                         class="profile-settings-item | d-flex align-items-center gap-2 px-2 py-1 mx-1 rounded"
                       >
                         <i class="fa-solid fa-circle-info | rounded-circle bg-secondary-subtle"></i>
                         <p class="fw-bold">Help & Support</p>
                       </div>
+                      <!-- display and accessibility -->
                       <div
                         class="profile-settings-item | d-flex align-items-center gap-2 px-2 py-1 mx-1 rounded"
                       >
@@ -312,7 +333,7 @@
                       </div>
 
                       <div class="mx-3 my-1 bg-secondary-subtle" style="height: 1px"></div>
-
+                      <!-- logout -->
                       <div
                         id="logout"
                         class="profile-settings-item | d-flex align-items-center gap-2 px-2 py-1 mx-1 rounded"
@@ -334,6 +355,7 @@
 
     <main class="main-content">
       <div class="container-xl">
+        <!-- alert message -->
         <div
           id="response-message"
           class="response-message | alert alert-dismissible d-none d-flex align-items-center position-fixed top-0 end-0"
@@ -354,16 +376,20 @@
         </div>
 
         <div class="main-grid | row p-lg-3">
+          <!-- left side -->
           <div class="left | col col-md-4 col-lg-3">
             <div class="row row-cols-1 gap-4">
+              <!-- user side profile -->
               <div class="user-side-profile | col d-none" id="user-side-profile">
                 <div class="card text-center">
                   <div class="position-relative">
+                    <!-- banner image -->
                     <img
                       class="card-img-top"
                       src="../assets/images/banners/banner-small.webp"
                       alt=""
                     />
+                    <!-- user image -->
                     <img
                       id="side-profile-user-image"
                       class="side-profile-image | rounded-circle position-absolute top-100 start-50 translate-middle"
@@ -371,6 +397,8 @@
                       alt=""
                     />
                   </div>
+
+                  <!-- side profile content -->
                   <div class="side-profile-content | card-body p-3">
                     <h6 id="side-profile-username" class="fw-bold title mb-0">Zain Tanveer</h6>
                     <p id="side-username" class="clr-neutral-300 | card-text fw-bold py-1">zain</p>
@@ -406,19 +434,23 @@
                 </div>
               </div>
 
+              <!-- people you may know -->
               <div id="people-you-may-know" class="people-you-may-know | col d-none">
                 <div class="card py-4">
                   <h6 class="people-heading | px-4 fw-bold position-relative mb-3">
                     People You May Know
                   </h6>
+                  <!-- user -->
                   <div
                     class="people-may-know-user | mx-2 px-2 d-flex align-items-center py-2 gap-2 rounded"
                   >
+                    <!-- user image -->
                     <img
                       class="may-know-image | rounded-circle"
                       src="../assets/images/Picture.jpg"
                       alt=""
                     />
+                    <!-- user info -->
                     <div class="d-flex flex-column">
                       <p class="may-know-fullname | fw-bold">Zain Tanveer</p>
                       <p class="may-know-username">Zain</p>
@@ -518,12 +550,15 @@
             </div>
           </div>
 
+          <!-- middle content -->
           <div class="middle | col-12 col-md-8 col-lg-6">
             <div class="row row-cols-1 gap-4">
               <div class="middle-content | col">
+                <!-- say something -->
                 <div class="card p-3 d-none" id="say-something">
                   <div class="d-flex gap-1 align-items-center">
                     <div class="search-image-wrapper">
+                      <!-- user image -->
                       <img
                         id="search-image"
                         src="../assets/images/Picture.jpg"
@@ -532,6 +567,7 @@
                         style="width: 3rem"
                       />
                     </div>
+                    <!-- say something text -->
                     <div
                       class="search-text | bg-secondary-subtle px-4 rounded-pill w-100"
                       data-bs-toggle="modal"
@@ -561,21 +597,26 @@
                 </div>
               </div>
 
+              <!-- posts -->
               <div class="middle-content | col">
                 <div class="posts-wrapper" id="posts">
+                  <!-- post -->
                   <div class="posts-card | d-none card mb-4" id="static-post">
                     <div class="card-body px-0">
                       <div class="row row-cols-1 g-0 gap-2">
                         <div
                           class="post-user | col px-3 d-flex justify-content-between align-items-center"
                         >
+                          <!-- post user -->
                           <div class="post-user-info | d-flex gap-2 align-items-center">
+                            <!-- user image -->
                             <img
                               class="user-image-post | rounded-circle"
                               style="width: 2.75rem; height: 2.75rem"
                               src="../assets/images/Picture.jpg"
                               alt=""
                             />
+                            <!-- user info -->
                             <div class="d-flex flex-column">
                               <p class="fullname-post clr-primary-text | fw-bold">
                                 Jeanne Halvorson
@@ -583,6 +624,7 @@
                               <p class="username-post clr-neutral-400">michelle</p>
                             </div>
                           </div>
+                          <!-- helper icons -->
                           <div class="post-user-helpers | d-flex gap-1">
                             <div class="dot-helper-wrapper">
                               <i class="bx bx-dots-horizontal-rounded rounded-circle"></i>
@@ -592,12 +634,15 @@
                             </div>
                           </div>
                         </div>
+                        <!-- post info -->
                         <div class="post-info | col py-1">
                           <div class="px-3">
+                            <!-- title -->
                             <div class="post-title fs-size-250 | fw-bold">
                               His mother had always taught him
                             </div>
 
+                            <!-- body -->
                             <div class="post-body fs-size-250 clr-neutral-400 | lh-sm">
                               <span>
                                 <span class="post-body-first"
@@ -630,11 +675,14 @@
                           </div>
                         </div>
 
+                        <!-- post image -->
                         <div
                           class="post-image | col d-flex justify-content-center bg-secondary-subtle"
                         >
                           <img src="../assets/images/posts/post-3.jpg" alt="" />
                         </div>
+
+                        <!-- post meta info -->
                         <div class="post-reactions | px-3 col">
                           <div
                             class="pb-2 border-bottom d-flex justify-content-between fs-size-250"
@@ -649,6 +697,7 @@
                             <div class="comments-number"></div>
                           </div>
                         </div>
+                        <!-- like comment share -->
                         <div class="col px-3">
                           <div
                             class="clr-neutral-400 | row row-cols-3 text-center pb-2 g-0 border-bottom"
@@ -676,21 +725,28 @@
                             </div>
                           </div>
                         </div>
+
+                        <!-- post comments -->
                         <div class="comments | col px-3">
+                          <!-- view more comments -->
                           <div
                             class="more-comments | mb-2 fw-bold clr-neutral-400"
                             data-bs-toggle="modal"
                             data-bs-target="#postModal"
                           ></div>
+                          <!-- comments -->
                           <div class="comments-wrapper">
+                            <!-- comment -->
                             <div class="comment-container">
                               <div class="d-inline-flex align-items-center gap-1">
+                                <!-- comment info -->
                                 <div
                                   class="comment | px-3 py-2 d-flex flex-column bg-clr-neutral-100"
                                 >
                                   <p class="comment-user fs-size-250 | fw-bold">Zain Tanveer</p>
                                   <p class="comment-body fs-size-400">How are you today?</p>
                                 </div>
+                                <!-- comment dropdown options icon -->
                                 <div class="comment-options | dropdown-center">
                                   <i
                                     class="fs-size-500 clr-neutral-400 | bx bx-dots-horizontal-rounded | p-2 rounded-circle"
@@ -699,6 +755,7 @@
                                     aria-expanded="false"
                                   ></i>
 
+                                  <!-- comment options dropdown -->
                                   <ul class="comment-options-dropdown | dropdown-menu border-0">
                                     <li>
                                       <a class="fs-size-300 | dropdown-item fw-bold" href="#">
@@ -711,11 +768,13 @@
                                   </ul>
                                 </div>
                               </div>
+                              <!-- edit comment cancel button -->
                               <div
                                 class="comment-cancel-helper fs-size-200 | d-none ms-3 mb-3 fw-bold clr-neutral-300 text-primary"
                               >
                                 <div class="comment-helper">Cancel</div>
                               </div>
+                              <!-- like / reply buttons -->
                               <div
                                 class="comment-like-reply-helpers fs-size-200 | d-flex gap-3 ms-3 mb-3 fw-bold clr-neutral-300"
                               >
@@ -725,14 +784,16 @@
                             </div>
                           </div>
 
+                          <!-- add comment section -->
                           <div class="d-flex gap-2 align-items-center">
+                            <!-- user image -->
                             <img
                               class="post-comment-user-image | rounded-circle"
                               src="../assets/images/Picture.jpg"
                               alt=""
                               style="width: 2.25rem"
                             />
-
+                            <!-- add comment input -->
                             <div class="input-group">
                               <input
                                 type="text"
@@ -825,21 +886,26 @@
             </div>
           </div>
 
+          <!-- right side -->
           <div class="right | col">
             <div class="row row-cols-1 gap-4">
+              <!-- recent notifications -->
               <div id="notifications" class="notifications | col d-none">
                 <div class="card py-4">
                   <h6 class="people-heading | px-4 fw-bold position-relative mb-3">
                     Recent Notifications
                   </h6>
+                  <!-- notification -->
                   <div
                     class="notification | mx-2 px-2 d-flex align-items-center py-2 gap-2 rounded"
                   >
+                    <!-- user image -->
                     <img
                       class="notify-image may-know-image | rounded-circle"
                       src="../assets/images/Picture.jpg"
                       alt=""
                     />
+                    <!-- user info -->
                     <div class="d-flex flex-column">
                       <p class="notifications-title | fw-bold">His mother always taught him</p>
                       <p class="notifications-username">kimminche</p>
@@ -989,6 +1055,7 @@
                 </div>
               </div>
 
+              <!-- advertisement -->
               <div class="advertisement | col">
                 <div class="card p-4">
                   <h6 class="people-heading | fw-bold position-relative mb-3">Advertisement</h6>

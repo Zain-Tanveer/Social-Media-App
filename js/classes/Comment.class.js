@@ -1,6 +1,7 @@
 class Comment {
   constructor() {}
 
+  // function to get comments of specific posts
   async getPostComments(post_id) {
     try {
       const response = await fetch(`https://dummyjson.com/comments/post/${post_id}`);
@@ -15,6 +16,7 @@ class Comment {
     }
   }
 
+  // function to add a comment
   async addComment(body, userId, postId) {
     try {
       const response = await fetch("https://dummyjson.com/comments/add", {
@@ -39,13 +41,14 @@ class Comment {
     }
   }
 
+  // function to update a comment
   async updateComment(body, commentId) {
     try {
       const response = await fetch(`https://dummyjson.com/comments/${commentId}`, {
         method: "PUT" /* or PATCH */,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          body: "I think I should shift to the moon",
+          body,
         }),
       });
 
@@ -61,6 +64,7 @@ class Comment {
     }
   }
 
+  // function to delete a comment
   async deleteComment(commentId = 1) {
     try {
       const response = await fetch(`https://dummyjson.com/comments/${commentId}`, {
