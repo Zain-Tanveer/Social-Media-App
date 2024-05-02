@@ -167,6 +167,7 @@ class Post {
     this.setUserInfo(postModalEl); // setting the logged in user info on post
 
     this.addUserProfileEventListener(postModalEl); // adding click event listener on user in header of post modal
+
     this.addCommentInputEventListener(postModalEl); // adding comment input field event listener on comments
     this.addCommentSendEventListener(postModalEl); // adding add comment event listener on comments
   }
