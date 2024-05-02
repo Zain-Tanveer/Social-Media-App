@@ -487,28 +487,37 @@ class Post {
   // function to add event listener for click of send icon on add comment
   addCommentSendEventListener(postEl) {
     const commentSendEl = postEl.querySelector(".comment-send-icon");
-    commentSendEl.addEventListener("click", async () => {
+
+    if (commentSendEl.onclick) {
+      commentSendEl.onclick = null;
+    }
+
+    commentSendEl.onclick = async () => {
       const inputEl = postEl.querySelector(".comment-input");
 
       if (inputEl.value !== "") {
         this.showLoader(postEl, "comment-send-icon", "comment-send-loader");
         await this.handleAddComment(postEl, inputEl); // sending request to api and adding new comment
       }
-    });
+    };
   }
 
   // function to add event listener for comment input field
   addCommentInputEventListener(postEl) {
     const inputEl = postEl.querySelector(".comment-input");
 
-    inputEl.addEventListener("keypress", async (e) => {
+    if (inputEl.onkeyup) {
+      inputEl.onkeyup = null;
+    }
+
+    inputEl.onkeyup = async (e) => {
       if (e.key === "Enter") {
         if (inputEl.value !== "") {
           this.showLoader(postEl, "comment-send-icon", "comment-send-loader");
           await this.handleAddComment(postEl, inputEl); // sending request to api and adding new comment
         }
       }
-    });
+    };
   }
 
   // function to add event listener on edit button in comment dropdown
